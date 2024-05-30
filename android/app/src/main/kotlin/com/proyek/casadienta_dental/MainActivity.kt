@@ -1,4 +1,4 @@
-package com.example.ahli_gigi
+package com.proyek.casadienta_dental
 
 import io.flutter.embedding.android.FlutterActivity
 

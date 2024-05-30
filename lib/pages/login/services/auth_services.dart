@@ -1,10 +1,10 @@
 import 'dart:convert';
-import 'package:ahli_gigi/config/api_config.dart';
+import 'package:casadienta_dental/config/api_config.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:ahli_gigi/pages/dashboard/dashboard.dart';
-import 'package:ahli_gigi/pages/navbar/navbar.dart';
+import 'package:casadienta_dental/pages/dashboard/dashboard.dart';
+import 'package:casadienta_dental/pages/navbar/navbar.dart';
 import 'package:flutter/material.dart';
 
 class AuthService {

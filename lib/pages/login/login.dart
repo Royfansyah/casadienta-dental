@@ -1,7 +1,7 @@
-import 'package:ahli_gigi/pages/dashboard/dashboard.dart';
-import 'package:ahli_gigi/pages/navbar/navbar.dart';
-import 'package:ahli_gigi/pages/profile/components/tentang.dart';
-import 'package:ahli_gigi/settings/constants/warna_apps.dart';
+import 'package:casadienta_dental/pages/dashboard/dashboard.dart';
+import 'package:casadienta_dental/pages/navbar/navbar.dart';
+import 'package:casadienta_dental/pages/profile/components/tentang.dart';
+import 'package:casadienta_dental/settings/constants/warna_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '/components/app_text_form_field.dart';

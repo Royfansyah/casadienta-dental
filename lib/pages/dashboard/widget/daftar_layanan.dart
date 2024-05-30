@@ -1,5 +1,5 @@
-import 'package:ahli_gigi/pages/details_page/detailsPage.dart';
-import 'package:ahli_gigi/settings/constants/warna_apps.dart';
+import 'package:casadienta_dental/pages/details_page/detailsPage.dart';
+import 'package:casadienta_dental/settings/constants/warna_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:ahli_gigi/config/api_config.dart';
-import 'package:ahli_gigi/pages/pembayaran/pembayaranSukses.dart';
-import 'package:ahli_gigi/settings/constants/warna_apps.dart';
+import 'package:casadienta_dental/config/api_config.dart';
+import 'package:casadienta_dental/pages/pembayaran/pembayaranSukses.dart';
+import 'package:casadienta_dental/settings/constants/warna_apps.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

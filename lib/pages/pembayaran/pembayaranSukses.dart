@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:ahli_gigi/pages/navbar/navbar.dart';
-import 'package:ahli_gigi/pages/dashboard/dashboard.dart';
+import 'package:casadienta_dental/pages/navbar/navbar.dart';
+import 'package:casadienta_dental/pages/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';

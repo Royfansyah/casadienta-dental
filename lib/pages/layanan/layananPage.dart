@@ -4,9 +4,9 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:ahli_gigi/config/api_config.dart';
-import 'package:ahli_gigi/pages/dashboard/widget/daftar_layanan.dart';
-import 'package:ahli_gigi/settings/constants/warna_apps.dart';
+import 'package:casadienta_dental/config/api_config.dart';
+import 'package:casadienta_dental/pages/dashboard/widget/daftar_layanan.dart';
+import 'package:casadienta_dental/settings/constants/warna_apps.dart';
 import 'package:lottie/lottie.dart';
 
 class Layanan extends StatefulWidget {

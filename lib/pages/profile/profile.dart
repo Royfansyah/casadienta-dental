@@ -1,10 +1,10 @@
 // import 'package:ahli_gigi/pages/dashboard/dashboard.dart';
-import 'package:ahli_gigi/pages/profile/components/bantuan.dart';
-import 'package:ahli_gigi/pages/profile/components/tentang.dart';
-// import 'package:ahli_gigi/pages/profile/widget/user_profile.dart';
-import 'package:ahli_gigi/pages/login/login.dart';
-import 'package:ahli_gigi/pages/profile/components/info_akun.dart';
-import 'package:ahli_gigi/settings/constants/warna_apps.dart';
+import 'package:casadienta_dental/pages/profile/components/bantuan.dart';
+import 'package:casadienta_dental/pages/profile/components/tentang.dart';
+// import 'package:casadienta_dental/pages/profile/widget/user_profile.dart';
+import 'package:casadienta_dental/pages/login/login.dart';
+import 'package:casadienta_dental/pages/profile/components/info_akun.dart';
+import 'package:casadienta_dental/settings/constants/warna_apps.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';

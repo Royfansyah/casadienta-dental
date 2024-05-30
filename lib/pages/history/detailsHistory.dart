@@ -1,5 +1,5 @@
-import 'package:ahli_gigi/pages/history/widget/details_History_Widget.dart';
-import 'package:ahli_gigi/settings/constants/warna_apps.dart';
+import 'package:casadienta_dental/pages/history/widget/details_History_Widget.dart';
+import 'package:casadienta_dental/settings/constants/warna_apps.dart';
 import 'package:flutter/material.dart';
 
 class detailsHistory extends StatefulWidget {

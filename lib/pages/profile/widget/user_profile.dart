@@ -1,9 +1,9 @@
-import 'package:ahli_gigi/pages/navbar/navbar.dart';
-import 'package:ahli_gigi/settings/constants/warna_apps.dart';
+import 'package:casadienta_dental/pages/navbar/navbar.dart';
+import 'package:casadienta_dental/settings/constants/warna_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:ahli_gigi/pages/profile/profile.dart';
+import 'package:casadienta_dental/pages/profile/profile.dart';
 
 class UserProfile extends StatelessWidget {
   final User? user;

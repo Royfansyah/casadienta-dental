@@ -1,11 +1,12 @@
-import 'package:ahli_gigi/pages/login/login.dart';
-import 'package:ahli_gigi/pages/splash_screen/splash_screen.dart';
-// import 'package:ahli_gigi/pages/navbar/navbar.dart';
+import 'package:casadienta_dental/pages/login/login.dart';
+import 'package:casadienta_dental/pages/splash_screen/splash_screen.dart';
+// import 'package:casadienta_dental/pages/navbar/navbar.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:change_app_package_name/change_app_package_name.dart';
 
 void main() async {
   // menampilkan garis debug

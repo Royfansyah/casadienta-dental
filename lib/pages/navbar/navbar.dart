@@ -1,12 +1,12 @@
-import 'package:ahli_gigi/settings/constants/warna_apps.dart';
-import 'package:ahli_gigi/pages/categories/categories.dart';
-import 'package:ahli_gigi/pages/dashboard/dashboard.dart';
-import 'package:ahli_gigi/pages/history/historyPage.dart';
-import 'package:ahli_gigi/pages/layanan/layananPage.dart';
-import 'package:ahli_gigi/pages/navbar/widget/bottom_icon_widget.dart';
-import 'package:ahli_gigi/pages/profile/profile.dart';
-import 'package:ahli_gigi/resource/resource.gen.dart';
-import 'package:ahli_gigi/settings/constants/warna_apps.dart';
+import 'package:casadienta_dental/settings/constants/warna_apps.dart';
+import 'package:casadienta_dental/pages/categories/categories.dart';
+import 'package:casadienta_dental/pages/dashboard/dashboard.dart';
+import 'package:casadienta_dental/pages/history/historyPage.dart';
+import 'package:casadienta_dental/pages/layanan/layananPage.dart';
+import 'package:casadienta_dental/pages/navbar/widget/bottom_icon_widget.dart';
+import 'package:casadienta_dental/pages/profile/profile.dart';
+import 'package:casadienta_dental/resource/resource.gen.dart';
+import 'package:casadienta_dental/settings/constants/warna_apps.dart';
 import 'package:flutter/material.dart';
 
 class NavBar extends StatefulWidget {

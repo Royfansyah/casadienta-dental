@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:723047128823:android:21aa408d5df132bbb83df2",
         "android_client_info": {
-          "package_name": "com.example.ahli_gigi"
+          "package_name": "com.proyek.casadienta_dental"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "723047128823-e4fkskgflippad9m69ike0uk14kjvnns.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.ahli_gigi",
+            "package_name": "com.proyek.casadienta_dental",
             "certificate_hash": "278453b67b8efd029fc82e32f66a32c4aa4a145f"
           }
         },
@@ -25,7 +25,7 @@
           "client_id": "723047128823-o5m93l7m7gths47g3lm1gd5uq86d7121.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.ahli_gigi",
+            "package_name": "com.proyek.casadienta_dental",
             "certificate_hash": "edb626624684e335d4ec2043a1f8c6dd0c9181c6"
           }
         },
@@ -50,7 +50,7 @@
               "client_id": "723047128823-1uau1vd5gdser8ebsmtdufoqc261o59a.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.ahliGigi"
+                "bundle_id": "com.proyek.casadienta_dental"
               }
             }
           ]

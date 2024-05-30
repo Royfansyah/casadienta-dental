@@ -1,5 +1,5 @@
-import 'package:ahli_gigi/pages/details_page/widget/details_page_widget.dart';
-import 'package:ahli_gigi/settings/constants/warna_apps.dart';
+import 'package:casadienta_dental/pages/details_page/widget/details_page_widget.dart';
+import 'package:casadienta_dental/settings/constants/warna_apps.dart';
 import 'package:flutter/material.dart';
 
 class DetailsPage extends StatefulWidget {
