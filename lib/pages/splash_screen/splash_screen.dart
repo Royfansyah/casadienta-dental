@@ -20,27 +20,39 @@ class _SplashScreenState extends State<SplashScreen> {
     const splashDuration = 4500;
 
     // Fungsi untuk berpindah ke halaman utama setelah waktu tertentu
+    // Timer(
+    //   Duration(milliseconds: splashDuration),
+    //   () async {
+    //     // Periksa apakah pengguna sudah login
+    //     User? user = FirebaseAuth.instance.currentUser;
+
+    //     if (user != null) {
+    //       // Jika sudah login, arahkan ke halaman utama (MainTabBar)
+    //       Navigator.of(context).pushReplacement(
+    //         MaterialPageRoute(
+    //           builder: (BuildContext context) => NavBar(initialPageIndex: 0),
+    //         ),
+    //       );
+    //     } else {
+    //       // Jika belum login, arahkan ke halaman SplashNext1
+    //       Navigator.of(context).pushReplacement(
+    //         MaterialPageRoute(
+    //           builder: (BuildContext context) => Login(),
+    //         ),
+    //       );
+    //     }
+    //   },
+    // );
+
+    // Tanpa Auth firebase
     Timer(
       Duration(milliseconds: splashDuration),
-      () async {
-        // Periksa apakah pengguna sudah login
-        User? user = FirebaseAuth.instance.currentUser;
-
-        if (user != null) {
-          // Jika sudah login, arahkan ke halaman utama (MainTabBar)
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (BuildContext context) => NavBar(initialPageIndex: 0),
-            ),
-          );
-        } else {
-          // Jika belum login, arahkan ke halaman SplashNext1
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (BuildContext context) => Login(),
-            ),
-          );
-        }
+      () {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (BuildContext context) => NavBar(initialPageIndex: 0),
+          ),
+        );
       },
     );
   }
@@ -74,18 +86,18 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             ],
           ),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            child: Container(
-              padding: EdgeInsets.all(16),
-              child: Image.asset(
-                'assets/img/logo-gigi.png',
-                width: 25,
-                height: 25,
-              ),
-            ),
-          ),
+          // Positioned(
+          //   bottom: 0,
+          //   right: 0,
+          //   child: Container(
+          //     padding: EdgeInsets.all(16),
+          //     child: Image.asset(
+          //       'assets/img/logo-gigi.png',
+          //       width: 25,
+          //       height: 25,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

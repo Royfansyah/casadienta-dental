@@ -85,4 +85,26 @@ class AuthService {
 
     await http.post(url, headers: headers, body: body);
   }
+  static Future<UserCredential> signInAnonymously(BuildContext context) async {
+    try {
+      // Sign in anonymously
+      UserCredential userCredential = await FirebaseAuth.instance.signInAnonymously();
+
+      // Navigate to the main page after successful login
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => NavBar(initialPageIndex: 0),
+        ),
+      );
+
+      return userCredential;
+    } catch (e) {
+      // Handle any errors during the anonymous sign-in process
+      throw FirebaseAuthException(
+        code: 'anonymous-signin-failed',
+        message: 'Error during anonymous sign-in process: $e',
+      );
+    }
+  }
 }

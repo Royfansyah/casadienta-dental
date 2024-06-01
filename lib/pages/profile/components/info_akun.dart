@@ -18,6 +18,7 @@ class _InfoAkunState extends State<InfoAkun> {
     return Scaffold(
       backgroundColor: AppColors.backGroundColor,
       appBar: AppBar(
+        backgroundColor: AppColors.backGroundColor,
         title: Text(
           'Info Akun',
           style: TextStyle(

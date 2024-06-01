@@ -71,6 +71,7 @@ class _LayananState extends State<Layanan> {
     ));
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColors.backGroundColor,
         title: Text(
           'Daftar Layanan',
           style: TextStyle(

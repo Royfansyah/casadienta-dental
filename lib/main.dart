@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:change_app_package_name/change_app_package_name.dart';
 
 void main() async {
   // menampilkan garis debug

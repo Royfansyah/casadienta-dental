@@ -33,6 +33,7 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       backgroundColor: AppColors.backGroundColor,
       appBar: AppBar(
+        backgroundColor: AppColors.backGroundColor,
         title: Text(
           'Profil',
           style: TextStyle(
@@ -313,7 +314,7 @@ class _ProfileState extends State<Profile> {
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: InkWell(
                 onTap: () {
-                  _signOut(context);
+                  // _signOut(context); // Dimatikan Sementara
                 },
                 child: Container(
                   padding: EdgeInsets.all(15),

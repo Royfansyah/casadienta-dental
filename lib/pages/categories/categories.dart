@@ -12,6 +12,7 @@ class Categories extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.backGroundColor,
       appBar: AppBar(
+        backgroundColor: AppColors.backGroundColor,
         title: Text(
           'Kategori',
           style: TextStyle(

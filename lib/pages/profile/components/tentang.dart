@@ -29,6 +29,7 @@ class _TentangState extends State<Tentang> {
     return Scaffold(
       backgroundColor: AppColors.backGroundColor,
       appBar: AppBar(
+        backgroundColor: AppColors.backGroundColor,
         title: Text(
           widget.title ?? 'Tentang',
           style: TextStyle(
@@ -41,6 +42,7 @@ class _TentangState extends State<Tentang> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: ExpansionTileCard(
+              baseColor: AppColors.backGroundColor,
               key: cardA,
               expandedTextColor: AppColors.primaryColor,
               title: const Text(
@@ -60,7 +62,7 @@ class _TentangState extends State<Tentang> {
                       vertical: 8.0,
                     ),
                     child: Text(
-                      'Ahli Gigi adalah aplikasi yang didedikasikan untuk memudahkan Anda dalam mencari dan memesan layanan gigi yang berkualitas. Kami menyediakan akses yang mudah, terpercaya, dan layanan kesehatan gigi yang berkualitas.',
+                      'Deskripsi Tentang Kami',
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
@@ -74,6 +76,7 @@ class _TentangState extends State<Tentang> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: ExpansionTileCard(
+              baseColor: AppColors.backGroundColor,
               key: cardB,
               expandedTextColor: AppColors.primaryColor,
               title: const Text(
@@ -93,7 +96,7 @@ class _TentangState extends State<Tentang> {
                       vertical: 8.0,
                     ),
                     child: Text(
-                      'Ahli Gigi Acenk didirikan pada tahun 2018 dengan tujuan meningkatkan kualitas pelayanan kesehatan gigi. Sejak itu, kami telah tumbuh menjadi salah satu platform terkemuka dalam industri kesehatan gigi, melayani ribuan pasien setiap tahunnya.',
+                      'Deskripsi Riwayat Perusahaan',
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
@@ -107,6 +110,7 @@ class _TentangState extends State<Tentang> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: ExpansionTileCard(
+              baseColor: AppColors.backGroundColor,
               key: cardC,
               expandedTextColor: AppColors.primaryColor,
               title: const Text(
@@ -126,11 +130,11 @@ class _TentangState extends State<Tentang> {
                       vertical: 8.0,
                     ),
                     child: Text(
-                      """Alamat: Jl. Ampera Raya No.17, Pekiringan, Kesambi, Kota Cirebon, Jawa Barat
+                      """Alamat: 
 
-Email: info@acenkdental.com
+Email: 
 
-Telepon: 0800-123-4567""",
+Telepon: """,
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
@@ -144,6 +148,7 @@ Telepon: 0800-123-4567""",
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: ExpansionTileCard(
+              baseColor: AppColors.backGroundColor,
               key: cardD,
               expandedTextColor: AppColors.primaryColor,
               title: const Text(
@@ -163,16 +168,11 @@ Telepon: 0800-123-4567""",
                       vertical: 8.0,
                     ),
                     child: Text(
-                      """Kami adalah mahasiswa dan mahasiswi Semester 5 dari Kampus Universitas Catur Insan Cendekia Kota Cirebon yang memiliki tugas projek dalam pembuatan dan pengembangan aplikasi mobile menggunakan Flutter untuk Penerapan Sistem Booking Ahli Gigi sebagai salah satu syarat dan memperoleh nilai akhir mata kuliah Pengembangan Aplikasi Mobile. Dengan menggunakan teknologi Flutter, kami bertujuan untuk menciptakan solusi yang inovatif dan efektif untuk memenuhi kebutuhan dalam bidang pelayanan kesehatan gigi.
+                      """Kami adalah mahasiswa Semester 6 dari Kampus Universitas Catur Insan Cendekia Kota Cirebon.
 
 Anggota :
 - 20210120068 - Ega Permana
-- 20210120059 - Fia Hamasyatus Syahadah
-- 20210120071 - Royfansyah M Razavi
-
-Dosen Pengampu :
-Muhammad Hatta, M.Kom.
-Mohamad Firdaus, M.Kom.""",
+- 20210120071 - Royfansyah M Razavi""",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
@@ -186,6 +186,7 @@ Mohamad Firdaus, M.Kom.""",
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: ExpansionTileCard(
+              baseColor: AppColors.backGroundColor,
               key: cardE,
               expandedTextColor: AppColors.primaryColor,
               title: const Text(
@@ -205,9 +206,9 @@ Mohamad Firdaus, M.Kom.""",
                       vertical: 8.0,
                     ),
                     child: Text(
-                      """Versi Aplikasi : 1.2.2
+                      """Versi Aplikasi : x.x.x
 
-Terakhir Diperbarui : 4 Februari 2024""",
+Terakhir Diperbarui : d/m/y""",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!

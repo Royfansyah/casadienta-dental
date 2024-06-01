@@ -28,6 +28,7 @@ class _BantuanPageState extends State<BantuanPage> {
     return Scaffold(
       backgroundColor: AppColors.backGroundColor,
       appBar: AppBar(
+        backgroundColor: AppColors.backGroundColor,
         title: Text(
           widget.title ?? 'Bantuan',
           style: TextStyle(
@@ -40,6 +41,7 @@ class _BantuanPageState extends State<BantuanPage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: ExpansionTileCard(
+              baseColor: AppColors.backGroundColor,
               key: cardA,
               expandedTextColor: AppColors.primaryColor,
               title: const Text(
@@ -59,7 +61,7 @@ class _BantuanPageState extends State<BantuanPage> {
                       vertical: 8.0,
                     ),
                     child: Text(
-                      """* Bagaimana cara membuat janji temu dengan Ahli Gigi?
+                      """* Bagaimana cara membuat janji temu?
 
 Untuk membuat janji temu, buka aplikasi dan masuk ke bagian "Layanan".  Pilih waktu yang sesuai, lalu pilih metode pembayaran yang diinginkan.""",
                       style: Theme.of(context)
@@ -75,6 +77,7 @@ Untuk membuat janji temu, buka aplikasi dan masuk ke bagian "Layanan".  Pilih wa
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: ExpansionTileCard(
+              baseColor: AppColors.backGroundColor,
               key: cardB,
               expandedTextColor: AppColors.primaryColor,
               title: const Text(
@@ -94,9 +97,7 @@ Untuk membuat janji temu, buka aplikasi dan masuk ke bagian "Layanan".  Pilih wa
                       vertical: 8.0,
                     ),
                     child: Text(
-                      """* Navigasi Dasar
-
-Aplikasi kami memiliki menu navigasi di bagian bawah layar. Gunakan menu tersebut untuk mengakses fitur-fitur utama yaitu, Layanan, Kategori, Home, Riwayat dan Profil.""",
+                      """* Navigasi Dasar""",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
@@ -110,6 +111,7 @@ Aplikasi kami memiliki menu navigasi di bagian bawah layar. Gunakan menu tersebu
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: ExpansionTileCard(
+              baseColor: AppColors.backGroundColor,
               key: cardC,
               expandedTextColor: AppColors.primaryColor,
               title: const Text(
@@ -145,6 +147,7 @@ Anda juga dapat menghubungi dukungan pelanggan melalui email di permanaega677@gm
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: ExpansionTileCard(
+              baseColor: AppColors.backGroundColor,
               key: cardD,
               expandedTextColor: AppColors.primaryColor,
               title: const Text(
@@ -166,12 +169,12 @@ Anda juga dapat menghubungi dukungan pelanggan melalui email di permanaega677@gm
                     child: Text(
                       """* Kebijakan Privasi
 
-Baca kebijakan privasi kami di www.acenkdental.com/privasi untuk memahami bagaimana kami mengumpulkan, menggunakan, dan melindungi informasi pribadi Anda.
+Baca kebijakan privasi kami di www.casadienta.com/privasi untuk memahami bagaimana kami mengumpulkan, menggunakan, dan melindungi informasi pribadi Anda.
 
 
 * Syarat Penggunaan
 
-Syarat dan ketentuan penggunaan aplikasi kami dapat ditemukan di www.acenkdental.com/syarat-dan-ketentuan. Harap baca dengan seksama sebelum menggunakan layanan kami.""",
+Syarat dan ketentuan penggunaan aplikasi kami dapat ditemukan di www.casadienta.com/syarat-dan-ketentuan. Harap baca dengan seksama sebelum menggunakan layanan kami.""",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!

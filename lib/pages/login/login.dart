@@ -2,6 +2,7 @@ import 'package:casadienta_dental/pages/dashboard/dashboard.dart';
 import 'package:casadienta_dental/pages/navbar/navbar.dart';
 import 'package:casadienta_dental/pages/profile/components/tentang.dart';
 import 'package:casadienta_dental/settings/constants/warna_apps.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '/components/app_text_form_field.dart';
@@ -196,6 +197,25 @@ class _LoginState extends State<Login> {
                         );
                         // Tambahkan logika untuk tombol login di sini
                       },
+                      // onTap: () async {
+                      //   try {
+                      //     // Contoh untuk login sebagai tamu
+                      //     UserCredential user =
+                      //         await FirebaseAuth.instance.signInAnonymously();
+                      //     // Navigate to the Tentang page after successful login
+                      //     Navigator.push(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //         builder: (context) => Tentang(),
+                      //       ),
+                      //     );
+                      //   } catch (e) {
+                      //     // Handle error
+                      //     ScaffoldMessenger.of(context).showSnackBar(
+                      //       SnackBar(content: Text(e.toString())),
+                      //     );
+                      //   }
+                      // },
                       child: Container(
                         decoration: BoxDecoration(
                           color: AppColors.primaryColor,

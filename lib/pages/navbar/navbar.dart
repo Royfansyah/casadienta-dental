@@ -1,3 +1,4 @@
+import 'package:casadienta_dental/pages/history/historyPageBlank.dart';
 import 'package:casadienta_dental/settings/constants/warna_apps.dart';
 import 'package:casadienta_dental/pages/categories/categories.dart';
 import 'package:casadienta_dental/pages/dashboard/dashboard.dart';
@@ -35,7 +36,7 @@ class _NavBarState extends State<NavBar> {
       const Categories(),
       const Profile(),
       const Layanan(),
-      const Riwayat(),
+      HistoryPageBlank(), // Dummy HistoryPage
     ];
   }
 

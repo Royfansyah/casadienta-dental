@@ -70,6 +70,7 @@ class _RiwayatState extends State<Riwayat> {
     return Scaffold(
       backgroundColor: AppColors.backGroundColor,
       appBar: AppBar(
+        backgroundColor: AppColors.backGroundColor,
         title: Text(
           'Riwayat Janji Temu',
           style: TextStyle(

@@ -24,7 +24,9 @@ class DetailsPageWidget extends StatelessWidget {
     // double screenHeight = MediaQuery.of(context).size.height;
     // double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: AppColors.backGroundColor,
       appBar: AppBar(
+        backgroundColor: AppColors.backGroundColor,
         title: Text(layanan,
             style: TextStyle(
               fontWeight: FontWeight.bold,

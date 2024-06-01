@@ -154,7 +154,9 @@ class _PembayaranPageState extends State<PembayaranPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.backGroundColor,
       appBar: AppBar(
+        backgroundColor: AppColors.backGroundColor,
         title: const Text(
           'Pembayaran',
           style: TextStyle(
