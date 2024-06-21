@@ -167,8 +167,8 @@ class _DashboardState extends State<Dashboard> {
                               padding: const EdgeInsets.only(right: 0.0),
                               child: const Text(
                                 'More',
-                                style:
-                                    TextStyle(fontSize: 13, color: Colors.blue),
+                                style: TextStyle(
+                                    fontSize: 13, color: AppColors.primaryText),
                               ),
                             ),
                           ),
@@ -327,7 +327,7 @@ class _DashboardState extends State<Dashboard> {
                                 'More',
                                 style: TextStyle(
                                   fontSize: 13,
-                                  color: Colors.blue,
+                                  color: AppColors.primaryText,
                                 ),
                               ),
                             ),

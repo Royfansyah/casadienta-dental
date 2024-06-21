@@ -1,4 +1,5 @@
 import 'package:casadienta_dental/pages/navbar/navbar.dart';
+import 'package:casadienta_dental/pages/notifikasi/notifikasi.dart';
 import 'package:casadienta_dental/settings/constants/warna_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -94,13 +95,23 @@ class UserProfile extends StatelessWidget {
                           margin: EdgeInsets.only(bottom: 8.0),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10.0),
-                            child: Padding(
-                              padding: const EdgeInsets.all(
-                                  4.0), // Sesuaikan dengan ukuran padding yang diinginkan
-                              child: Image.asset(
-                                'assets/icons/bell.png',
-                                height: 20,
-                                width: 20,
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => NotifikasiPage(),
+                                  ),
+                                );
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(
+                                    4.0), // Sesuaikan dengan ukuran padding yang diinginkan
+                                child: Image.asset(
+                                  'assets/icons/bell.png',
+                                  height: 20,
+                                  width: 20,
+                                ),
                               ),
                             ),
                           ),

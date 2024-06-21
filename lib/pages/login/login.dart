@@ -46,7 +46,7 @@ class _LoginState extends State<Login> {
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/img/login_screen.jpg'),
+                    image: AssetImage('assets/img/bg_casadienta.jpg'),
                     fit: BoxFit.cover,
                     colorFilter: ColorFilter.mode(
                       Colors.black
@@ -60,7 +60,7 @@ class _LoginState extends State<Login> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Selalu Jaga Kesehatan Gigimu\nBersama Acenk Dental',
+                      'Selalu Jaga Kesehatan Gigimu\nBersama Casadienta Dental',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
@@ -129,7 +129,16 @@ class _LoginState extends State<Login> {
                               ),
                               child: InkResponse(
                                 onTap: () =>
-                                    AuthService.signInWithGoogle(context),
+                                    // AuthService.signInWithGoogle(context),
+                                    {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          NavBar(initialPageIndex: 0),
+                                    ),
+                                  ),
+                                },
                                 child: Container(
                                   padding: const EdgeInsets.all(12),
                                   child: Row(
@@ -229,13 +238,12 @@ class _LoginState extends State<Login> {
                             ),
                           ],
                         ),
-                        padding: EdgeInsets.all(12),
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
+                          borderRadius: BorderRadius.circular(10),
                           child: Image.asset(
-                            'assets/img/logo-gigi.png',
-                            height: 30,
-                            width: 30,
+                            'assets/img/logo_casadienta.jpg',
+                            height: 50,
+                            width: 50,
                           ),
                         ),
                       ),

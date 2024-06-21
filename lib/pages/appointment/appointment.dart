@@ -116,6 +116,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
+                                  backgroundColor: AppColors.backGroundColor,
                                   title: const Text("Peringatan!"),
                                   content: const Text(
                                       "Silakan pilih waktu yang tersedia."),
@@ -208,6 +209,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
+                backgroundColor: AppColors.backGroundColor,
                 title: const Text("Peringatan!"),
                 content: const Text("Waktu sudah lewat."),
                 actions: [
@@ -228,7 +230,9 @@ class _AppointmentPageState extends State<AppointmentPage> {
         decoration: BoxDecoration(
           color: selectedValue == value
               ? AppColors.primaryColor
-              : (isPastTime ? Colors.red : Colors.grey),
+              : (isPastTime
+                  ? const Color.fromARGB(255, 223, 15, 0)
+                  : Colors.grey),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Text(

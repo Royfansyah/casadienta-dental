@@ -38,7 +38,7 @@ class _ProfileState extends State<Profile> {
           'Profil',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: AppColors.primaryColor,
+            color: AppColors.primaryText,
           ),
         ),
         centerTitle: true,
@@ -339,7 +339,7 @@ class _ProfileState extends State<Profile> {
                         color: Colors.white,
                       ),
                       Text(
-                        'Logout',
+                        ' Logout',
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,

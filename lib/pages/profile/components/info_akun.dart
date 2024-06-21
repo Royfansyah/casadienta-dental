@@ -27,7 +27,6 @@ class _InfoAkunState extends State<InfoAkun> {
         centerTitle: true,
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           UserProfile(
             user: FirebaseAuth.instance.currentUser,
