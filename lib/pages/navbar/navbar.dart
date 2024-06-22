@@ -36,7 +36,7 @@ class _NavBarState extends State<NavBar> {
       const Categories(),
       const Profile(),
       const Layanan(),
-      HistoryPageBlank(), // Dummy HistoryPage
+      const Riwayat(),
     ];
   }
 

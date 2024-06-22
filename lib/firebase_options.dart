@@ -27,10 +27,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -44,41 +41,51 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyD8UF1UNXL1g5-3U5CJi7QwJxTPOUsEjyQ',
-    appId: '1:723047128823:web:e7836b7f716cac0eb83df2',
-    messagingSenderId: '723047128823',
-    projectId: 'ahli-gigi-acenk',
-    authDomain: 'ahli-gigi-acenk.firebaseapp.com',
-    storageBucket: 'ahli-gigi-acenk.appspot.com',
+    apiKey: 'AIzaSyDYJTHqUIBrknwWwuJ2BAEKnVf4NqPPOYw',
+    appId: '1:10474039323:web:8dea60971eac1d4ea430be',
+    messagingSenderId: '10474039323',
+    projectId: 'casadienta-dental',
+    authDomain: 'casadienta-dental.firebaseapp.com',
+    storageBucket: 'casadienta-dental.appspot.com',
+    measurementId: 'G-NHSL7ZKFK0',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyD7tbMZnKUGme_rLKOB3bRnsFaBkEaPqI4',
-    appId: '1:723047128823:android:21aa408d5df132bbb83df2',
-    messagingSenderId: '723047128823',
-    projectId: 'ahli-gigi-acenk',
-    storageBucket: 'ahli-gigi-acenk.appspot.com',
+    apiKey: 'AIzaSyBxEbEPWXGaW8sAIiypd1Kz5h0x9jslJdo',
+    appId: '1:10474039323:android:09f364a27fba6651a430be',
+    messagingSenderId: '10474039323',
+    projectId: 'casadienta-dental',
+    storageBucket: 'casadienta-dental.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCYhAhCrZOo-epDLzra-gkUwQSO1b36mWk',
-    appId: '1:723047128823:ios:0d80c8bd5a7e2e89b83df2',
-    messagingSenderId: '723047128823',
-    projectId: 'ahli-gigi-acenk',
-    storageBucket: 'ahli-gigi-acenk.appspot.com',
-    androidClientId: '723047128823-o5m93l7m7gths47g3lm1gd5uq86d7121.apps.googleusercontent.com',
-    iosClientId: '723047128823-1uau1vd5gdser8ebsmtdufoqc261o59a.apps.googleusercontent.com',
+    apiKey: 'AIzaSyBMLjgit1CP-n1lqnUDsWkDOozAvNTAQJw',
+    appId: '1:10474039323:ios:6610e8428fe6eeb1a430be',
+    messagingSenderId: '10474039323',
+    projectId: 'casadienta-dental',
+    storageBucket: 'casadienta-dental.appspot.com',
+    iosClientId: '10474039323-a25d1bq2pt6bt0s4gin4jdcor606cg3d.apps.googleusercontent.com',
     iosBundleId: 'com.example.ahliGigi',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCYhAhCrZOo-epDLzra-gkUwQSO1b36mWk',
-    appId: '1:723047128823:ios:0d80c8bd5a7e2e89b83df2',
-    messagingSenderId: '723047128823',
-    projectId: 'ahli-gigi-acenk',
-    storageBucket: 'ahli-gigi-acenk.appspot.com',
-    androidClientId: '723047128823-o5m93l7m7gths47g3lm1gd5uq86d7121.apps.googleusercontent.com',
-    iosClientId: '723047128823-1uau1vd5gdser8ebsmtdufoqc261o59a.apps.googleusercontent.com',
+    apiKey: 'AIzaSyBMLjgit1CP-n1lqnUDsWkDOozAvNTAQJw',
+    appId: '1:10474039323:ios:6610e8428fe6eeb1a430be',
+    messagingSenderId: '10474039323',
+    projectId: 'casadienta-dental',
+    storageBucket: 'casadienta-dental.appspot.com',
+    iosClientId: '10474039323-a25d1bq2pt6bt0s4gin4jdcor606cg3d.apps.googleusercontent.com',
     iosBundleId: 'com.example.ahliGigi',
   );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyDYJTHqUIBrknwWwuJ2BAEKnVf4NqPPOYw',
+    appId: '1:10474039323:web:64eb40ef521830d6a430be',
+    messagingSenderId: '10474039323',
+    projectId: 'casadienta-dental',
+    authDomain: 'casadienta-dental.firebaseapp.com',
+    storageBucket: 'casadienta-dental.appspot.com',
+    measurementId: 'G-GV7MTCR8PL',
+  );
+
 }

@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // Waktu tunda sebelum berpindah ke halaman utama (dalam milidetik)
     const splashDuration = 4500;
 
-    // Dengan Firebase
+    // Dengan Auth Firebase
     // Fungsi untuk berpindah ke halaman utama setelah waktu tertentu
     Timer(
       Duration(milliseconds: splashDuration),

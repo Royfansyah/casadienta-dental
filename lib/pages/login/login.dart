@@ -26,8 +26,8 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  // TextEditingController emailController = TextEditingController();
+  // TextEditingController passwordController = TextEditingController();
 
   bool isObscure = true;
 
@@ -129,16 +129,7 @@ class _LoginState extends State<Login> {
                               ),
                               child: InkResponse(
                                 onTap: () =>
-                                    // AuthService.signInWithGoogle(context),
-                                    {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          NavBar(initialPageIndex: 0),
-                                    ),
-                                  ),
-                                },
+                                    AuthService.signInWithGoogle(context),
                                 child: Container(
                                   padding: const EdgeInsets.all(12),
                                   child: Row(
@@ -206,25 +197,6 @@ class _LoginState extends State<Login> {
                         );
                         // Tambahkan logika untuk tombol login di sini
                       },
-                      // onTap: () async {
-                      //   try {
-                      //     // Contoh untuk login sebagai tamu
-                      //     UserCredential user =
-                      //         await FirebaseAuth.instance.signInAnonymously();
-                      //     // Navigate to the Tentang page after successful login
-                      //     Navigator.push(
-                      //       context,
-                      //       MaterialPageRoute(
-                      //         builder: (context) => Tentang(),
-                      //       ),
-                      //     );
-                      //   } catch (e) {
-                      //     // Handle error
-                      //     ScaffoldMessenger.of(context).showSnackBar(
-                      //       SnackBar(content: Text(e.toString())),
-                      //     );
-                      //   }
-                      // },
                       child: Container(
                         decoration: BoxDecoration(
                           color: AppColors.primaryColor,
