@@ -1,11 +1,11 @@
-import 'package:casadienta_dental/pages/history/historyPageBlank.dart';
+import 'package:casadienta_dental/pages/riwayat/riwayatPageBlank.dart';
 import 'package:casadienta_dental/settings/constants/warna_apps.dart';
 import 'package:casadienta_dental/pages/categories/categories.dart';
 import 'package:casadienta_dental/pages/dashboard/dashboard.dart';
-import 'package:casadienta_dental/pages/history/historyPage.dart';
+import 'package:casadienta_dental/pages/riwayat/riwayatPage.dart';
 import 'package:casadienta_dental/pages/layanan/layananPage.dart';
 import 'package:casadienta_dental/pages/navbar/widget/bottom_icon_widget.dart';
-import 'package:casadienta_dental/pages/profile/profile.dart';
+import 'package:casadienta_dental/pages/profile/profilePage.dart';
 import 'package:casadienta_dental/resource/resource.gen.dart';
 import 'package:casadienta_dental/settings/constants/warna_apps.dart';
 import 'package:flutter/material.dart';

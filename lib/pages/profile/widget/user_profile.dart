@@ -3,7 +3,7 @@ import 'package:casadienta_dental/settings/constants/warna_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:casadienta_dental/pages/profile/profile.dart';
+import 'package:casadienta_dental/pages/profile/profilePage.dart';
 
 class UserProfile extends StatelessWidget {
   final User? user;

@@ -1,3 +1,4 @@
+import 'package:casadienta_dental/pages/dokter/widget/daftar_dokter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -9,14 +10,14 @@ import 'package:casadienta_dental/pages/dashboard/widget/daftar_layanan.dart';
 import 'package:casadienta_dental/settings/constants/warna_apps.dart';
 import 'package:lottie/lottie.dart';
 
-class Layanan extends StatefulWidget {
-  const Layanan({Key? key}) : super(key: key);
+class Dokter extends StatefulWidget {
+  const Dokter({Key? key}) : super(key: key);
 
   @override
-  State<Layanan> createState() => _LayananState();
+  State<Dokter> createState() => _DokterState();
 }
 
-class _LayananState extends State<Layanan> {
+class _DokterState extends State<Dokter> {
   late User? user;
   late Future<List<dynamic>> _serviceData;
   late List<dynamic> serviceList = [];
@@ -73,14 +74,13 @@ class _LayananState extends State<Layanan> {
       appBar: AppBar(
         backgroundColor: AppColors.backGroundColor,
         title: Text(
-          'Daftar Layanan',
+          'Daftar Dokter',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: AppColors.primaryColor,
           ),
         ),
         centerTitle: true,
-        automaticallyImplyLeading: false,
       ),
       backgroundColor: AppColors.backGroundColor,
       body: ListView(
@@ -162,7 +162,7 @@ class _LayananState extends State<Layanan> {
                         padding: const EdgeInsets.only(top: 20.0),
                         child: Container(
                           child: Text(
-                            'Layanan tidak ditemukan.',
+                            'Dokter tidak ditemukan.',
                             style: TextStyle(
                               fontSize: 20,
                               color: Colors.red,
@@ -186,7 +186,7 @@ class _LayananState extends State<Layanan> {
                     itemCount: filteredServiceList.length,
                     itemBuilder: (context, index) {
                       var service = filteredServiceList[index];
-                      return DaftarLayananCard(
+                      return DaftarDokterCard(
                         imagePath: service['lokasi_gambar'],
                         idLayanan: service['id_layanan'],
                         nama_layanan: service['nama_layanan'],

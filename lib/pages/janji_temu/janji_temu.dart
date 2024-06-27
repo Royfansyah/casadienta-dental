@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:casadienta_dental/pages/appointment/widget/table_calendar.dart';
+import 'package:casadienta_dental/pages/janji_temu/widget/table_calendar.dart';
 import 'package:casadienta_dental/pages/pembayaran/pembayaranPage.dart';
 import 'package:casadienta_dental/settings/constants/warna_apps.dart';
 

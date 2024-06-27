@@ -1,4 +1,4 @@
-import 'package:casadienta_dental/pages/history/widget/details_History_Widget.dart';
+import 'package:casadienta_dental/pages/riwayat/widget/details_History_Widget.dart';
 import 'package:casadienta_dental/settings/constants/warna_apps.dart';
 import 'package:flutter/material.dart';
 

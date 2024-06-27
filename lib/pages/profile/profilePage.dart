@@ -34,7 +34,7 @@ class _ProfileState extends State<Profile> {
       backgroundColor: AppColors.backGroundColor,
       appBar: AppBar(
         backgroundColor: AppColors.backGroundColor,
-        title: Text(
+        title: const Text(
           'Profil',
           style: TextStyle(
             fontWeight: FontWeight.bold,
@@ -54,7 +54,7 @@ class _ProfileState extends State<Profile> {
             // SizedBox(
             //   height: 20,
             // ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Container(
@@ -64,7 +64,7 @@ class _ProfileState extends State<Profile> {
                 width: 100,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             // -------INFO AKUN-------
@@ -100,7 +100,7 @@ class _ProfileState extends State<Profile> {
                           color: AppColors.primaryColor,
                         ),
                       ),
-                      Text(
+                      const Text(
                         'Info Akun',
                         style: TextStyle(
                           fontSize: 14,
@@ -181,7 +181,7 @@ class _ProfileState extends State<Profile> {
             //     ),
             //   ),
             // ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             // -------TENTANG-------
@@ -217,7 +217,7 @@ class _ProfileState extends State<Profile> {
                           color: AppColors.primaryColor,
                         ),
                       ),
-                      Text(
+                      const Text(
                         'Tentang',
                         style: TextStyle(
                           fontSize: 14,
@@ -239,7 +239,7 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             // -------BANTUAN-------
@@ -275,7 +275,7 @@ class _ProfileState extends State<Profile> {
                           color: AppColors.primaryColor,
                         ),
                       ),
-                      Text(
+                      const Text(
                         'Bantuan',
                         style: TextStyle(
                           fontSize: 14,
@@ -330,7 +330,7 @@ class _ProfileState extends State<Profile> {
                     ],
                     borderRadius: BorderRadius.circular(15),
                   ),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(

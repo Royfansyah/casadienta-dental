@@ -1,16 +1,16 @@
-import 'package:casadienta_dental/pages/appointment/appointment.dart';
+import 'package:casadienta_dental/pages/janji_temu/janji_temu.dart';
 import 'package:casadienta_dental/settings/constants/warna_apps.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
-class DetailsPageWidget extends StatelessWidget {
+class DetailsDokterPageWidget extends StatelessWidget {
   final String imagePath;
   final int idLayanan;
   final String layanan;
   final String harga;
   final String penjelasan;
 
-  const DetailsPageWidget({
+  const DetailsDokterPageWidget({
     Key? key,
     required this.imagePath,
     required this.idLayanan,
@@ -27,7 +27,7 @@ class DetailsPageWidget extends StatelessWidget {
       backgroundColor: AppColors.backGroundColor,
       appBar: AppBar(
         backgroundColor: AppColors.backGroundColor,
-        title: Text(layanan,
+        title: Text("Dokter",
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: AppColors.primaryColor,
@@ -105,7 +105,7 @@ class DetailsPageWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
-                  height: 150,
+                  height: 200,
                   child: SingleChildScrollView(
                     child: Column(
                       children: <Widget>[

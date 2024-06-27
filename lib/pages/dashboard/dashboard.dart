@@ -2,7 +2,8 @@ import 'package:casadienta_dental/config/api_config.dart';
 // import 'package:casadienta_dental/pages/categories/categories.dart';
 import 'package:casadienta_dental/pages/dashboard/widget/daftar_layanan.dart';
 import 'package:casadienta_dental/pages/dashboard/widget/user_profile.dart';
-import 'package:casadienta_dental/pages/details_page/DetailsPage.dart';
+import 'package:casadienta_dental/pages/details_layanan_page/details_layanan_page.dart';
+import 'package:casadienta_dental/pages/dokter/dokterPage.dart';
 import 'package:casadienta_dental/pages/navbar/navbar.dart';
 import 'package:casadienta_dental/settings/constants/warna_apps.dart';
 // import 'package:casadienta_dental/pages/navbar/navbar.dart';
@@ -10,8 +11,8 @@ import 'package:casadienta_dental/settings/constants/warna_apps.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:casadienta_dental/pages/dashboard/widget/popular_card.dart';
-import 'package:casadienta_dental/pages/dashboard/widget/service_card.dart';
+import 'package:casadienta_dental/pages/dashboard/widget/ulasan_card.dart';
+import 'package:casadienta_dental/pages/dashboard/widget/layanan_card.dart';
 // import 'package:casadienta_dental/pages/login/login.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -148,7 +149,7 @@ class _DashboardState extends State<Dashboard> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Text(
-                            'Layanan',
+                            'Dokter',
                             style: TextStyle(
                                 fontSize: 19, fontWeight: FontWeight.bold),
                           ),
@@ -156,11 +157,10 @@ class _DashboardState extends State<Dashboard> {
                             onTap: () {
                               // Tambahkan logika untuk navigasi ke halaman lain di sini
                               // Misalnya, Navigator.push ke halaman baru.
-                              Navigator.pushReplacement(
+                              Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        NavBar(initialPageIndex: 3)),
+                                    builder: (context) => Dokter()),
                               );
                             },
                             child: Padding(

@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:casadienta_dental/pages/history/detailsHistory.dart';
+import 'package:casadienta_dental/pages/riwayat/riwayatDetailPage.dart';
 import 'package:intl/intl.dart';
 import 'package:casadienta_dental/config/api_config.dart';
 import 'package:casadienta_dental/settings/constants/warna_apps.dart';

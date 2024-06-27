@@ -1,15 +1,14 @@
-import 'package:casadienta_dental/pages/details_page/widget/details_page_widget.dart';
-import 'package:casadienta_dental/settings/constants/warna_apps.dart';
+import 'package:casadienta_dental/pages/details_dokter_page/widget/details_dokter_page_widget.dart';
 import 'package:flutter/material.dart';
 
-class DetailsPage extends StatefulWidget {
+class DetailsDokterPage extends StatefulWidget {
   final String imagePath;
   final int idLayanan;
   final String layanan;
   final String harga;
   final String penjelasan;
 
-  const DetailsPage({
+  const DetailsDokterPage({
     Key? key,
     required this.imagePath,
     required this.idLayanan,
@@ -19,10 +18,10 @@ class DetailsPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<DetailsPage> createState() => _DetailsPageState();
+  State<DetailsDokterPage> createState() => _DetailsDokterPageState();
 }
 
-class _DetailsPageState extends State<DetailsPage> {
+class _DetailsDokterPageState extends State<DetailsDokterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +33,7 @@ class _DetailsPageState extends State<DetailsPage> {
       //       )),
       //   centerTitle: true,
       // ),
-      body: DetailsPageWidget(
+      body: DetailsDokterPageWidget(
         imagePath: widget.imagePath,
         idLayanan: widget.idLayanan,
         layanan: widget.layanan,

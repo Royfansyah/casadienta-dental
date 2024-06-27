@@ -1,9 +1,10 @@
-import 'package:casadienta_dental/pages/details_layanan_page/details_layanan_Page.dart';
-import 'package:casadienta_dental/settings/constants/warna_apps.dart';
+import 'package:casadienta_dental/pages/details_dokter_page/details_dokter_Page.dart';
 import 'package:flutter/material.dart';
+import 'package:casadienta_dental/settings/constants/warna_apps.dart';
+import 'package:casadienta_dental/pages/details_layanan_page/details_layanan_Page.dart';
 import 'package:intl/intl.dart';
 
-class DaftarLayananCard extends StatelessWidget {
+class DaftarDokterCard extends StatelessWidget {
   final String imagePath;
   final int idLayanan;
   final String nama_layanan;
@@ -11,7 +12,7 @@ class DaftarLayananCard extends StatelessWidget {
   final String deskripsi;
   final bool isAvailable;
 
-  DaftarLayananCard({
+  DaftarDokterCard({
     required this.imagePath,
     required this.idLayanan,
     required this.nama_layanan,
@@ -116,7 +117,7 @@ class DaftarLayananCard extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DetailsPage(
+                  builder: (context) => DetailsDokterPage(
                     imagePath: imagePath,
                     idLayanan: idLayanan,
                     layanan: nama_layanan,
