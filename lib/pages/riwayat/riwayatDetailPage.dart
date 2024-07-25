@@ -5,23 +5,29 @@ import 'package:flutter/material.dart';
 class detailsHistory extends StatefulWidget {
   final String imagePath;
   final int idLayanan;
+  final int idUser;
+  final String? nama_dokter;
   final String layanan;
   final String harga;
   final String tanggal;
   final String waktu;
   final String status;
-  final String metodePembayaran;
+  final String? hasil_analisa;
+  final String? saran_layanan;
 
   const detailsHistory({
     Key? key,
     required this.imagePath,
     required this.idLayanan,
+    required this.idUser,
+    this.nama_dokter,
     required this.layanan,
     required this.harga,
     required this.tanggal,
     required this.waktu,
     required this.status,
-    required this.metodePembayaran,
+    this.hasil_analisa,
+    this.saran_layanan,
   }) : super(key: key);
 
   @override
@@ -32,23 +38,28 @@ class _detailsHistoryState extends State<detailsHistory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.backGroundColor,
       appBar: AppBar(
+        backgroundColor: AppColors.backGroundColor,
         title: Text(
-          'Janji Temu',
+          'Detail Janji Temu',
           style: TextStyle(
               fontWeight: FontWeight.bold, color: AppColors.primaryColor),
         ),
         centerTitle: true,
       ),
-      body: detailsHistoryWidget(
+      body: DetailsHistoryWidget(
         imagePath: widget.imagePath,
         idLayanan: widget.idLayanan,
+        idUser: widget.idUser,
+        nama_dokter: widget.nama_dokter ?? '-',
         layanan: widget.layanan,
         harga: widget.harga,
         tanggal: widget.tanggal,
         waktu: widget.waktu,
         status: widget.status,
-        metodePembayaran: widget.metodePembayaran,
+        hasil_analisa: widget.hasil_analisa ?? '-',
+        saran_layanan: widget.saran_layanan ?? '-',
       ),
     );
   }

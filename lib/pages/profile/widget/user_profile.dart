@@ -3,27 +3,36 @@ import 'package:casadienta_dental/settings/constants/warna_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:casadienta_dental/pages/profile/profilePage.dart';
+import 'package:casadienta_dental/pages/profile/components/info_akun.dart';
 
 class UserProfile extends StatelessWidget {
-  final User? user;
+  final String namaUser; // Variabel namaUser untuk menampilkan nama saja
+  final User? user; // User dari FirebaseAuth
+  final String fotoUser;
   final VoidCallback? onPressed;
 
-  UserProfile({Key? key, required this.user, this.onPressed}) : super(key: key);
+  UserProfile(
+      {Key? key,
+      required this.namaUser,
+      required this.user,
+      required this.fotoUser,
+      this.onPressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     String fullName = user?.displayName ?? '';
-    String shortName = fullName.isNotEmpty
-        ? fullName.split(' ').length >= 2
-            ? '${fullName.split(' ')[0]} ${fullName.split(' ')[1]}'
-            : fullName
+    String shortName = namaUser.isNotEmpty
+        ? namaUser.split(' ').length >= 4
+            ? '${namaUser.split(' ')[0]} ${namaUser.split(' ')[1]} ${namaUser.split(' ')[2]} ${namaUser.split(' ')[3]}' // Menampilkan nama pertama dan nama terakhir
+            : namaUser // Jika hanya satu kata, tetap tampilkan sebagai namaUser
         : 'Pengguna';
 
     String joinDate = user != null
         ? 'Bergabung sejak ${user?.metadata.creationTime != null ? DateFormat('dd MMM yyyy').format(user!.metadata.creationTime!.toLocal()) : ''}'
         : 'Belum Bergabung';
     String email = user?.email ?? 'Tidak ada email';
+
     return Container(
       padding: EdgeInsets.all(16.0),
       width: double.infinity, // Membuat container selebar layar
@@ -57,10 +66,11 @@ class UserProfile extends StatelessWidget {
                         child: CircleAvatar(
                           radius: 50,
                           backgroundColor: Colors.white,
-                          backgroundImage: user?.photoURL != null
-                              ? NetworkImage(user!.photoURL!)
+                          backgroundImage: fotoUser.isNotEmpty
+                              ? NetworkImage(
+                                  fotoUser) // Jika fotoUser adalah URL gambar
                               : AssetImage('assets/img/empty-user.png')
-                                  as ImageProvider,
+                                  as ImageProvider, // Jika tidak ada, tampilkan gambar default
                         ),
                       ),
                     ),
@@ -75,7 +85,9 @@ class UserProfile extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            fullName.isNotEmpty ? fullName : 'Pengguna',
+                            shortName.isNotEmpty
+                                ? shortName
+                                : 'Pengguna', // Menggunakan shortName
                             style: TextStyle(
                               fontSize: 26,
                               fontWeight: FontWeight.bold,

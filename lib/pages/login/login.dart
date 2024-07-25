@@ -1,21 +1,16 @@
 import 'package:casadienta_dental/pages/dashboard/dashboard.dart';
 import 'package:casadienta_dental/pages/navbar/navbar.dart';
 import 'package:casadienta_dental/pages/profile/components/tentang.dart';
+import 'package:casadienta_dental/pages/login/register.dart';
 import 'package:casadienta_dental/settings/constants/warna_apps.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '/components/app_text_form_field.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'services/auth_services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
-final GoogleSignIn _googleSignIn = GoogleSignIn(
-  scopes: [
-    'email',
-    'https://www.googleapis.com/auth/contacts.readonly',
-  ],
-);
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -26,14 +21,33 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
-  // TextEditingController emailController = TextEditingController();
-  // TextEditingController passwordController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   bool isObscure = true;
 
+  Future<void> loginUser() async {
+    final response = await http.get(
+      Uri.parse(
+        'https://casadienta-92546be972aa.herokuapp.com/api/User',
+      ),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+
+    if (response.statusCode == 201) {
+      // Jika berhasil, Anda bisa menavigasi pengguna ke halaman utama atau menampilkan pesan sukses
+      print('Login berhasil');
+      Navigator.pushReplacementNamed(context, '');
+    } else {
+      // Jika gagal, Anda bisa menampilkan pesan error
+      print('Login gagal: ${response.body}');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final size = context.mediaQuerySize;
     return Scaffold(
       body: SingleChildScrollView(
         child: Form(
@@ -41,7 +55,7 @@ class _LoginState extends State<Login> {
           child: Column(
             children: [
               Container(
-                height: MediaQuery.of(context).size.height / 1.5,
+                height: 500,
                 width: double.infinity,
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
@@ -49,13 +63,12 @@ class _LoginState extends State<Login> {
                     image: AssetImage('assets/img/bg_casadienta.jpg'),
                     fit: BoxFit.cover,
                     colorFilter: ColorFilter.mode(
-                      Colors.black
-                          .withOpacity(0.5), // Ganti nilai 0.5 sesuai kebutuhan
+                      Colors.black.withOpacity(0.5),
                       BlendMode.darken,
                     ),
                   ),
                 ),
-                child: Column(
+                child: const Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -66,7 +79,7 @@ class _LoginState extends State<Login> {
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 6,
                     ),
                     Text(
@@ -84,8 +97,60 @@ class _LoginState extends State<Login> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     const SizedBox(
-                      height: 10,
+                      height: 20,
                     ),
+                    // TextFormField(
+                    //   controller: usernameController,
+                    //   decoration: InputDecoration(
+                    //     labelText: 'Username',
+                    //     border: OutlineInputBorder(
+                    //       borderRadius: BorderRadius.circular(10),
+                    //     ),
+                    //   ),
+                    //   validator: (value) {
+                    //     if (value == null || value.isEmpty) {
+                    //       return 'Please enter your username';
+                    //     }
+                    //     return null;
+                    //   },
+                    // ),
+                    // const SizedBox(height: 15),
+                    // TextFormField(
+                    //   controller: passwordController,
+                    //   obscureText: isObscure,
+                    //   decoration: InputDecoration(
+                    //     labelText: 'Password',
+                    //     border: OutlineInputBorder(
+                    //       borderRadius: BorderRadius.circular(10),
+                    //     ),
+                    //     suffixIcon: IconButton(
+                    //       icon: Icon(
+                    //         isObscure ? Icons.visibility_off : Icons.visibility,
+                    //       ),
+                    //       onPressed: () {
+                    //         setState(() {
+                    //           isObscure = !isObscure;
+                    //         });
+                    //       },
+                    //     ),
+                    //   ),
+                    //   validator: (value) {
+                    //     if (value == null || value.isEmpty) {
+                    //       return 'Please enter your password';
+                    //     }
+                    //     return null;
+                    //   },
+                    // ),
+                    // const SizedBox(height: 20),
+                    // ElevatedButton(
+                    //   onPressed: () {
+                    //     if (_formKey.currentState?.validate() ?? false) {
+                    //       loginUser();
+                    //     }
+                    //   },
+                    //   child: const Text('Login'),
+                    // ),
+                    // const SizedBox(height: 15),
                     Row(
                       children: [
                         Expanded(
@@ -94,9 +159,7 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Text(
                             'Login with',
                             style: Theme.of(context)
@@ -112,19 +175,16 @@ class _LoginState extends State<Login> {
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 15,
-                    ),
+                    const SizedBox(height: 20),
                     Row(
                       children: [
                         Expanded(
                           child: Material(
-                            elevation: 3, // Tinggi shadow
+                            elevation: 3,
                             borderRadius: BorderRadius.circular(15.0),
                             child: Ink(
                               decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: AppColors.primaryColor),
+                                border: Border.all(color: Colors.blue),
                                 borderRadius: BorderRadius.circular(15.0),
                               ),
                               child: InkResponse(
@@ -155,9 +215,7 @@ class _LoginState extends State<Login> {
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 15,
-                    ),
+                    const SizedBox(height: 20),
                     Row(
                       children: [
                         Expanded(
@@ -166,9 +224,7 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Text(
                             'This Is Us',
                             style: Theme.of(context)
@@ -184,9 +240,7 @@ class _LoginState extends State<Login> {
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    const SizedBox(height: 20),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -195,11 +249,10 @@ class _LoginState extends State<Login> {
                             builder: (context) => Tentang(),
                           ),
                         );
-                        // Tambahkan logika untuk tombol login di sini
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: AppColors.primaryColor,
+                          color: Colors.blue,
                           borderRadius: BorderRadius.circular(13.0),
                           boxShadow: [
                             BoxShadow(
@@ -230,7 +283,7 @@ class _LoginState extends State<Login> {
               //     mainAxisAlignment: MainAxisAlignment.center,
               //     children: [
               //       Text(
-              //         "Don't have an account?",
+              //         "Belum punya akun?",
               //         style: Theme.of(context)
               //             .textTheme
               //             .bodySmall
@@ -238,12 +291,11 @@ class _LoginState extends State<Login> {
               //       ),
               //       TextButton(
               //         onPressed: () {
-              //           Navigator.pushReplacementNamed(context, 'register');
-              //           // Tambahkan logika untuk tombol login di sini
+              //           Navigator.pushReplacementNamed(context, '/register');
               //         },
               //         style: Theme.of(context).textButtonTheme.style,
               //         child: Text(
-              //           'Register Here',
+              //           'Daftar Disini',
               //           style: Theme.of(context).textTheme.bodySmall?.copyWith(
               //                 color: Colors.blue,
               //                 fontWeight: FontWeight.bold,

@@ -1,22 +1,22 @@
-import 'package:casadienta_dental/pages/janji_temu/janji_temu.dart';
+// import 'package:casadienta_dental/pages/janji_temu/janji_temu.dart';
 import 'package:casadienta_dental/settings/constants/warna_apps.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
 class DetailsDokterPageWidget extends StatelessWidget {
   final String imagePath;
-  final int idLayanan;
-  final String layanan;
-  final String harga;
-  final String penjelasan;
+  final int idDokter;
+  final String nama_dokter;
+  final String pengalaman;
+  final String deskripsi;
 
   const DetailsDokterPageWidget({
     Key? key,
     required this.imagePath,
-    required this.idLayanan,
-    required this.layanan,
-    required this.harga,
-    required this.penjelasan,
+    required this.idDokter,
+    required this.nama_dokter,
+    required this.pengalaman,
+    required this.deskripsi,
   }) : super(key: key);
 
   @override
@@ -27,7 +27,7 @@ class DetailsDokterPageWidget extends StatelessWidget {
       backgroundColor: AppColors.backGroundColor,
       appBar: AppBar(
         backgroundColor: AppColors.backGroundColor,
-        title: Text("Dokter",
+        title: Text(nama_dokter,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: AppColors.primaryColor,
@@ -69,7 +69,7 @@ class DetailsDokterPageWidget extends StatelessWidget {
                         Center(
                           child: Container(
                             child: Text(
-                              layanan,
+                              nama_dokter,
                               style: const TextStyle(
                                 fontSize: 20.0,
                                 fontWeight: FontWeight.bold,
@@ -80,7 +80,8 @@ class DetailsDokterPageWidget extends StatelessWidget {
                         Center(
                           child: Container(
                             child: Text(
-                              '${NumberFormat.currency(locale: 'id_ID', symbol: 'Rp', decimalDigits: 0).format(double.parse(harga))}',
+                              // '${NumberFormat.currency(locale: 'id_ID', symbol: 'Rp', decimalDigits: 0).format(double.parse(harga))}',
+                              '$pengalaman Tahun',
                               style: const TextStyle(
                                 fontSize: 15.0,
                               ),
@@ -109,8 +110,8 @@ class DetailsDokterPageWidget extends StatelessWidget {
                   child: SingleChildScrollView(
                     child: Column(
                       children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(left: 13, top: 10),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 13, top: 10),
                           child: Row(
                             children: [
                               Text(
@@ -127,7 +128,7 @@ class DetailsDokterPageWidget extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(left: 13, right: 13),
                           child: Text(
-                            penjelasan,
+                            deskripsi,
                             style: const TextStyle(fontSize: 13.0),
                           ),
                         ),
@@ -135,57 +136,57 @@ class DetailsDokterPageWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    child: Center(
-                      child: Container(
-                        width: 400,
-                        height: 60,
-                        // decoration: BoxDecoration(
-                        //     color: const Color.fromARGB(111, 130, 130, 130),
-                        //     // border: Border.all(color: Colors.black),
-                        //     borderRadius: BorderRadius.circular(30)),
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: Container(
-                                height: 35,
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    // Aksi ketika button diklik
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => AppointmentPage(
-                                                idLayanan: idLayanan,
-                                                layanan: layanan,
-                                                harga: harga,
-                                              )),
-                                    );
-                                  },
-                                  child: Text(
-                                    'Buat Janji Temu',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: AppColors.primaryColor,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.all(8.0),
+                //   child: Container(
+                //     child: Center(
+                //       child: Container(
+                //         width: 400,
+                //         height: 60,
+                //         // decoration: BoxDecoration(
+                //         //     color: const Color.fromARGB(111, 130, 130, 130),
+                //         //     // border: Border.all(color: Colors.black),
+                //         //     borderRadius: BorderRadius.circular(30)),
+                //         child: Row(
+                //           children: <Widget>[
+                //             Expanded(
+                //               child: Container(
+                //                 height: 35,
+                //                 child: ElevatedButton(
+                //                   onPressed: () {
+                //                     // Aksi ketika button diklik
+                //                     Navigator.push(
+                //                       context,
+                //                       MaterialPageRoute(
+                //                           builder: (context) => AppointmentPage(
+                //                                 idLayanan: idLayanan,
+                //                                 layanan: layanan,
+                //                                 harga: harga,
+                //                               )),
+                //                     );
+                //                   },
+                //                   child: Text(
+                //                     'Buat Janji Temu',
+                //                     style: TextStyle(
+                //                       fontSize: 14,
+                //                       color: Colors.white,
+                //                     ),
+                //                   ),
+                //                   style: ElevatedButton.styleFrom(
+                //                     backgroundColor: AppColors.primaryColor,
+                //                     shape: RoundedRectangleBorder(
+                //                       borderRadius: BorderRadius.circular(10),
+                //                     ),
+                //                   ),
+                //                 ),
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),

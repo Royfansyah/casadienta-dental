@@ -14,12 +14,14 @@ class PembayaranPage extends StatefulWidget {
   final int idLayanan;
   final String layanan;
   final String harga;
+  final String tanggal;
   final String jam;
   const PembayaranPage({
     Key? key,
     required this.idLayanan,
     required this.layanan,
     required this.harga,
+    required this.tanggal,
     required this.jam,
   }) : super(key: key);
 
@@ -28,29 +30,34 @@ class PembayaranPage extends StatefulWidget {
 }
 
 class _PembayaranPageState extends State<PembayaranPage> {
-  dateNow() {
-    var now = new DateTime.now();
-    var formatter = new DateFormat('yyyy-MM-dd');
-    String formattedDate = formatter.format(now);
-    return formattedDate;
-  }
+  // dateNow() {
+  //   var now = new DateTime.now();
+  //   var formatter = new DateFormat('yyyy-MM-dd');
+  //   String formattedDate = formatter.format(now);
+  //   return formattedDate;
+  // }
+
+  // String formatDate(String date) {
+  //   DateTime dateTime = DateTime.parse(date);
+  //   return DateFormat('yyyy-MM-dd').format(dateTime);
+  // }
 
   int? selectedPaymentMethod;
-  File? _image;
+  // File? _image;
 
   final picker = ImagePicker();
 
-  Future getImage() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+  // Future getImage() async {
+  //   final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
-    setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
-      } else {
-        print('No image selected.');
-      }
-    });
-  }
+  //   setState(() {
+  //     if (pickedFile != null) {
+  //       _image = File(pickedFile.path);
+  //     } else {
+  //       print('No image selected.');
+  //     }
+  //   });
+  // }
 
   // Function to get id_google of the logged-in user
   Future<String?> getIdGoogle() async {
@@ -77,13 +84,13 @@ class _PembayaranPageState extends State<PembayaranPage> {
         Uri.parse('${ApiConfig.baseUrl}/api/User?id_google=$idGoogle'),
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         // Parse the response to get the user ID
         final Map<String, dynamic> userData = jsonDecode(response.body);
         return userData['id_user'];
       } else {
         // Handle errors
-        throw Exception('Gagal memuat ID pengguna');
+        throw Exception('Gagal memuat ID user');
       }
     } catch (e) {
       print("Error fetching user ID: $e");
@@ -98,7 +105,7 @@ class _PembayaranPageState extends State<PembayaranPage> {
     final String idGoogle = await getIdGoogle() ?? '';
 
     // Determine payment method based on selectedPaymentMethod
-    String metodePembayaran = 'COD';
+    // String metodePembayaran = '';
 
     try {
       // Prepare data to be sent to the API
@@ -106,10 +113,10 @@ class _PembayaranPageState extends State<PembayaranPage> {
         'id_layanan': widget.idLayanan,
         'id_user': await fetchUserId(idGoogle),
         'id_google': idGoogle,
-        'tanggal_pemesanan': dateNow(),
+        'tanggal_pemesanan': widget.tanggal,
         'waktu_pemesanan': widget.jam,
         'status_pemesanan': 'Menunggu Konfirmasi',
-        'metode_pembayaran': metodePembayaran,
+        // 'metode_pembayaran': metodePembayaran,
       };
 
       // Send data to the API
@@ -139,6 +146,10 @@ class _PembayaranPageState extends State<PembayaranPage> {
 
   @override
   Widget build(BuildContext context) {
+    DateTime parsedDate = DateTime.parse(widget.tanggal);
+    String formattedDate =
+        DateFormat('dd MMMM yyyy', 'id_ID').format(parsedDate);
+
     return Scaffold(
       backgroundColor: AppColors.backGroundColor,
       appBar: AppBar(
@@ -206,7 +217,7 @@ class _PembayaranPageState extends State<PembayaranPage> {
                               fontSize: 14, fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          'Hari ini, ${widget.jam.substring(0, 5)} WIB',
+                          '$formattedDate, ${widget.jam.substring(0, 5)} WIB',
                           // 'Hari ini, 10:00 WIB',
                           style: TextStyle(
                             fontSize: 14,

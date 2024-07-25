@@ -8,13 +8,16 @@ import 'package:casadienta_dental/pages/profile/profilePage.dart';
 
 class UserProfile extends StatelessWidget {
   final User? user;
+  final String? namaUser;
   final VoidCallback? onPressed;
 
-  UserProfile({Key? key, required this.user, this.onPressed}) : super(key: key);
+  UserProfile({Key? key, required this.user, this.namaUser, this.onPressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String fullName = user?.displayName ?? '';
+    print('Nama User: $namaUser'); // Tambahkan log untuk melihat nilai namaUser
+    String fullName = namaUser ?? '';
     String shortName =
         fullName.isNotEmpty ? fullName.split(' ')[0] : 'Pengguna';
     String joinDate = user != null
@@ -23,7 +26,7 @@ class UserProfile extends StatelessWidget {
     String email = user?.email ?? 'Tidak ada email';
     return Container(
       padding: EdgeInsets.all(16.0),
-      width: double.infinity, // Membuat container selebar layar
+      width: double.infinity,
       child: InkWell(
         onTap: onPressed,
         child: Container(

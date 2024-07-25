@@ -77,6 +77,7 @@ class DetailsPageWidget extends StatelessWidget {
                             ),
                           ),
                         ),
+                        const SizedBox(height: 3),
                         Center(
                           child: Container(
                             child: Text(
@@ -109,8 +110,8 @@ class DetailsPageWidget extends StatelessWidget {
                   child: SingleChildScrollView(
                     child: Column(
                       children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(left: 13, top: 10),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 13, top: 10),
                           child: Row(
                             children: [
                               Text(
@@ -164,17 +165,17 @@ class DetailsPageWidget extends StatelessWidget {
                                               )),
                                     );
                                   },
-                                  child: Text(
-                                    'Buat Janji Temu',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.white,
-                                    ),
-                                  ),
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: AppColors.primaryColor,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                  child: const Text(
+                                    'Buat Janji Temu',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.white,
                                     ),
                                   ),
                                 ),

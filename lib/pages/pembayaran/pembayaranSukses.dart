@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:casadienta_dental/pages/navbar/navbar.dart';
-import 'package:casadienta_dental/pages/dashboard/dashboard.dart';
+import 'package:casadienta_dental/settings/constants/warna_apps.dart';
+// import 'package:casadienta_dental/pages/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -29,13 +30,14 @@ class _PembayaranSuksesPageState extends State<PembayaranSuksesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
         child: showSpinkit
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SpinKitFoldingCube(
-                    color: Colors.blue,
+                    color: AppColors.primaryColor,
                     size: 50.0,
                   ),
                   SizedBox(height: 20.0),
@@ -57,7 +59,7 @@ class _PembayaranSuksesPageState extends State<PembayaranSuksesPage> {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => NavBar(initialPageIndex: 4),
+                            builder: (context) => NavBar(initialPageIndex: 3),
                           ));
                       // Tambahkan logika untuk tombol login di sini
                     },
@@ -69,7 +71,7 @@ class _PembayaranSuksesPageState extends State<PembayaranSuksesPage> {
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
+                      backgroundColor: AppColors.primaryColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),

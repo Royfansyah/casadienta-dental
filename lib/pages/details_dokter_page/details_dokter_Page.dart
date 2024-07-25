@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 
 class DetailsDokterPage extends StatefulWidget {
   final String imagePath;
-  final int idLayanan;
-  final String layanan;
-  final String harga;
-  final String penjelasan;
+  final int idDokter;
+  final String nama_dokter;
+  final String pengalaman;
+  final String deskripsi;
 
   const DetailsDokterPage({
     Key? key,
     required this.imagePath,
-    required this.idLayanan,
-    required this.layanan,
-    required this.harga,
-    required this.penjelasan,
+    required this.idDokter,
+    required this.nama_dokter,
+    required this.pengalaman,
+    required this.deskripsi,
   }) : super(key: key);
 
   @override
@@ -35,10 +35,10 @@ class _DetailsDokterPageState extends State<DetailsDokterPage> {
       // ),
       body: DetailsDokterPageWidget(
         imagePath: widget.imagePath,
-        idLayanan: widget.idLayanan,
-        layanan: widget.layanan,
-        harga: widget.harga,
-        penjelasan: widget.penjelasan,
+        idDokter: widget.idDokter,
+        nama_dokter: widget.nama_dokter,
+        pengalaman: widget.pengalaman,
+        deskripsi: widget.deskripsi,
       ),
     );
   }

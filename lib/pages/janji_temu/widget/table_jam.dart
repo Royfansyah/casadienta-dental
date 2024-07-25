@@ -8,20 +8,20 @@ class TableJam extends StatefulWidget {
 }
 
 class _TableJamState extends State<TableJam> {
-  int selectedValue = 0;
+  int selectedValue = -1;
 
   @override
- Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
         child: Wrap(
           spacing: 10.0,
           runSpacing: 10.0,
-          children: List.generate(13, (index) {
-            // Generate waktu dari jam 7 sampai jam 19
-            int jam = 7 + index;
-            String waktu = '${jam.toString().padLeft(2, '0')}.00';
+          children: List.generate(12, (index) {
+            // Generate waktu dari jam 09.00 sampai jam 20.00
+            int jam = 9 + index;
+            String waktu = '${jam.toString().padLeft(2, '0')}:00';
             return buildTimeContainer(jam, waktu);
           }),
         ),
@@ -37,14 +37,14 @@ class _TableJamState extends State<TableJam> {
         });
       },
       child: Container(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           color: selectedValue == value ? Colors.blue : Colors.grey,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Text(
           time,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),

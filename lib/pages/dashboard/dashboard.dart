@@ -1,10 +1,12 @@
 import 'package:casadienta_dental/config/api_config.dart';
+import 'package:casadienta_dental/pages/layanan/layananPage.dart';
 // import 'package:casadienta_dental/pages/categories/categories.dart';
-import 'package:casadienta_dental/pages/dashboard/widget/daftar_layanan.dart';
+import 'package:casadienta_dental/pages/layanan/widget/daftar_layanan.dart';
 import 'package:casadienta_dental/pages/dashboard/widget/user_profile.dart';
-import 'package:casadienta_dental/pages/details_layanan_page/details_layanan_page.dart';
+import 'package:casadienta_dental/pages/details_dokter_page/details_dokter_page.dart';
 import 'package:casadienta_dental/pages/dokter/dokterPage.dart';
 import 'package:casadienta_dental/pages/navbar/navbar.dart';
+import 'package:casadienta_dental/pages/ulasan/ulasanPage.dart';
 import 'package:casadienta_dental/settings/constants/warna_apps.dart';
 // import 'package:casadienta_dental/pages/navbar/navbar.dart';
 // import 'package:casadienta_dental/pages/profile/profile.dart';
@@ -12,7 +14,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:casadienta_dental/pages/dashboard/widget/ulasan_card.dart';
-import 'package:casadienta_dental/pages/dashboard/widget/layanan_card.dart';
+import 'package:casadienta_dental/pages/dashboard/widget/dokter_card.dart';
 // import 'package:casadienta_dental/pages/login/login.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -28,11 +30,21 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   late User? user;
+  late Future<Map<String, dynamic>> _serviceDataUser;
+  late Future<List<dynamic>> _serviceDataDokter;
   late Future<List<dynamic>> _serviceDataLayanan;
   late Future<List<dynamic>> _serviceDataUlasan;
 
-  Future<List> getDataLayanan() async {
-    var url = Uri.parse('${ApiConfig.baseUrl}/api/Layanan');
+  Future<Map<String, dynamic>> getDataUser(String idGoogle) async {
+    var url = Uri.parse('${ApiConfig.baseUrl}/api/User/$idGoogle');
+    final response = await http.get(url);
+    var data = jsonDecode(response.body);
+    print('User data: $data'); // Log data untuk debugging
+    return data;
+  }
+
+  Future<List> getDataDokter() async {
+    var url = Uri.parse('${ApiConfig.baseUrl}/api/Dokter');
     final response = await http.get(url);
     return jsonDecode(response.body);
   }
@@ -43,16 +55,30 @@ class _DashboardState extends State<Dashboard> {
     return jsonDecode(response.body);
   }
 
+  Future<List> getDataLayanan() async {
+    var url = Uri.parse('${ApiConfig.baseUrl}/api/Layanan');
+    final response = await http.get(url);
+    return jsonDecode(response.body);
+  }
+
   @override
   void initState() {
-    _serviceDataLayanan = getDataLayanan();
+    _serviceDataDokter = getDataDokter();
     _serviceDataUlasan = getDataUlasan();
+    _serviceDataLayanan = getDataLayanan();
     super.initState();
     initializeUser();
   }
 
   void initializeUser() {
     user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      String idGoogle = user!.uid;
+      _serviceDataUser = getDataUser(idGoogle);
+    }
+    _serviceDataDokter = getDataDokter();
+    _serviceDataUlasan = getDataUlasan();
+    _serviceDataLayanan = getDataLayanan();
   }
 
   @override
@@ -62,7 +88,7 @@ class _DashboardState extends State<Dashboard> {
         backgroundColor: AppColors.backGroundColor,
         body: SingleChildScrollView(
           child: FutureBuilder<List<dynamic>>(
-            future: _serviceDataLayanan,
+            future: _serviceDataDokter,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Column(
@@ -97,44 +123,25 @@ class _DashboardState extends State<Dashboard> {
                     const SizedBox(
                       height: 5,
                     ),
-                    UserProfile(
-                      user: user,
+                    FutureBuilder<Map<String, dynamic>>(
+                      future: _serviceDataUser,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator());
+                        } else if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else if (!snapshot.hasData) {
+                          return Text('No data available');
+                        } else {
+                          var userData = snapshot.data!;
+                          return UserProfile(
+                            user: user,
+                            namaUser: userData['data']['nama_user'],
+                          );
+                        }
+                      },
                     ),
-                    // Bagian atas dengan foto profil dan username
-                    // Konten dashboard lainnya dapat ditambahkan di sini
-                    // Padding(
-                    //   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    //   child: Container(
-                    //     height: 40.0,
-                    //     decoration: BoxDecoration(
-                    //       color: Colors.white,
-                    //       border: Border.all(
-                    //         color: AppColors.primaryColor,
-                    //         width: 1,
-                    //       ),
-                    //       borderRadius: BorderRadius.circular(15.0),
-                    //       boxShadow: [
-                    //         BoxShadow(
-                    //           color: AppColors.primaryColor.withOpacity(0.2),
-                    //           spreadRadius: 2,
-                    //           blurRadius: 5,
-                    //           offset: Offset(0, 2),
-                    //         ),
-                    //       ],
-                    //     ),
-                    //     child: TextField(
-                    //       decoration: InputDecoration(
-                    //         hintText: 'Cari...',
-                    //         prefixIcon: Icon(Icons.search),
-                    //         border: OutlineInputBorder(
-                    //           borderSide: BorderSide.none,
-                    //         ),
-                    //         contentPadding: EdgeInsets.symmetric(
-                    //             vertical: 8.0), // Atur padding vertikal
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
                     // Layanan dan More
                     const Divider(
                       thickness: 0.8,
@@ -163,10 +170,10 @@ class _DashboardState extends State<Dashboard> {
                                     builder: (context) => Dokter()),
                               );
                             },
-                            child: Padding(
-                              padding: const EdgeInsets.only(right: 0.0),
-                              child: const Text(
-                                'More',
+                            child: const Padding(
+                              padding: EdgeInsets.only(right: 0.0),
+                              child: Text(
+                                'Lainnya',
                                 style: TextStyle(
                                     fontSize: 13, color: AppColors.primaryText),
                               ),
@@ -195,28 +202,29 @@ class _DashboardState extends State<Dashboard> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => DetailsPage(
+                                  builder: (context) => DetailsDokterPage(
                                     imagePath: service['lokasi_gambar'],
-                                    idLayanan: service['id_layanan'],
-                                    layanan: service['nama_layanan'],
-                                    harga: service['harga'].toString(),
-                                    penjelasan: service['deskripsi'],
+                                    idDokter: service['id_dokter'],
+                                    nama_dokter: service['nama_user'],
+                                    pengalaman:
+                                        service['pengalaman'].toString(),
+                                    deskripsi: service['deskripsi'],
                                   ),
                                 ),
                               );
                             },
                             child: ServiceCard(
-                              service['nama_layanan'],
+                              service['nama_user'],
                               service['lokasi_gambar'],
                             ),
                           );
                         },
                       ),
                     ),
-                    // Popular
+                    // Ulasan
                     Padding(
-                      padding: const EdgeInsets.only(
-                          top: 16.0, left: 16.0, right: 16.0),
+                      padding:
+                          EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -225,26 +233,25 @@ class _DashboardState extends State<Dashboard> {
                             style: TextStyle(
                                 fontSize: 19, fontWeight: FontWeight.bold),
                           ),
-                          // InkWell(
-                          //   onTap: () {
-                          //     // Tambahkan logika untuk navigasi ke halaman lain di sini
-                          //     // Misalnya, Navigator.push ke halaman baru.
-                          //     Navigator.pushReplacement(
-                          //       context,
-                          //       MaterialPageRoute(
-                          //           builder: (context) =>
-                          //               NavBar(initialPageIndex: 3)),
-                          //     );
-                          //   },
-                          //   child: Padding(
-                          //     padding: const EdgeInsets.only(right: 0.0),
-                          //     child: const Text(
-                          //       'More',
-                          //       style:
-                          //           TextStyle(fontSize: 13, color: Colors.blue),
-                          //     ),
-                          //   ),
-                          // ),
+                          InkWell(
+                            onTap: () {
+                              // Tambahkan logika untuk navigasi ke halaman lain di sini
+                              // Misalnya, Navigator.push ke halaman baru.
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Ulasan()),
+                              );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 0.0),
+                              child: const Text(
+                                'Lainnya',
+                                style: TextStyle(
+                                    fontSize: 13, color: AppColors.primaryText),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -256,7 +263,7 @@ class _DashboardState extends State<Dashboard> {
                         builder: (context, snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
-                            return Center(
+                            return const Center(
                               child: CircularProgressIndicator(
                                 valueColor:
                                     AlwaysStoppedAnimation<Color>(Colors.blue),
@@ -271,7 +278,7 @@ class _DashboardState extends State<Dashboard> {
                             List<dynamic> ulasanList = snapshot.data!;
                             return ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: ulasanList.length > 2
+                              itemCount: ulasanList.length > 6
                                   ? 6
                                   : ulasanList
                                       .length, // Apabila Lebih dari 2 maka tampilkan 4
@@ -293,7 +300,6 @@ class _DashboardState extends State<Dashboard> {
                         },
                       ),
                     ),
-
                     const SizedBox(height: 5),
                     // Popular
                     Padding(
@@ -302,7 +308,7 @@ class _DashboardState extends State<Dashboard> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          const Text(
                             'Daftar Layanan',
                             style: TextStyle(
                               fontSize: 19,
@@ -316,15 +322,14 @@ class _DashboardState extends State<Dashboard> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      NavBar(initialPageIndex: 3),
+                                  builder: (context) => Layanan(),
                                 ),
                               );
                             },
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 0.0),
+                            child: const Padding(
+                              padding: EdgeInsets.only(left: 0.0),
                               child: Text(
-                                'More',
+                                'Lainnya',
                                 style: TextStyle(
                                   fontSize: 13,
                                   color: AppColors.primaryText,
@@ -335,23 +340,42 @@ class _DashboardState extends State<Dashboard> {
                         ],
                       ),
                     ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: ClampingScrollPhysics(),
-                      itemCount: serviceList.length > 2
-                          ? 2
-                          : serviceList
-                              .length, // Apabila Lebih dari 2 maka tampilkan 2
-                      itemBuilder: (context, index) {
-                        var service = serviceList[index];
-                        return DaftarLayananCard(
-                          imagePath: service['lokasi_gambar'],
-                          idLayanan: service['id_layanan'],
-                          nama_layanan: service['nama_layanan'],
-                          harga: service['harga'].toString(),
-                          deskripsi: service['deskripsi'],
-                          isAvailable: false,
-                        );
+                    FutureBuilder<List<dynamic>>(
+                      future: _serviceDataLayanan,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.blue),
+                            ),
+                          );
+                        } else if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else if (!snapshot.hasData ||
+                            snapshot.data!.isEmpty) {
+                          return Text('No data available');
+                        } else {
+                          List<dynamic> layananList = snapshot.data!;
+                          return ListView.builder(
+                            shrinkWrap: true,
+                            physics: ClampingScrollPhysics(),
+                            itemCount:
+                                layananList.length > 2 ? 2 : layananList.length,
+                            itemBuilder: (context, index) {
+                              var layanan = layananList[index];
+                              return DaftarLayananCard(
+                                imagePath: layanan['lokasi_gambar'],
+                                idLayanan: layanan['id_layanan'],
+                                nama_layanan: layanan['nama_layanan'],
+                                harga: layanan['harga'].toString(),
+                                deskripsi: layanan['deskripsi'],
+                                isAvailable: false,
+                              );
+                            },
+                          );
+                        }
                       },
                     ),
                   ],

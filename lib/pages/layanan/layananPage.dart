@@ -5,7 +5,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:casadienta_dental/config/api_config.dart';
-import 'package:casadienta_dental/pages/dashboard/widget/daftar_layanan.dart';
+import 'package:casadienta_dental/pages/layanan/widget/daftar_layanan.dart';
 import 'package:casadienta_dental/settings/constants/warna_apps.dart';
 import 'package:lottie/lottie.dart';
 
@@ -21,6 +21,9 @@ class _LayananState extends State<Layanan> {
   late Future<List<dynamic>> _serviceData;
   late List<dynamic> serviceList = [];
   late List<dynamic> filteredServiceList = [];
+
+  ScrollController _scrollController = ScrollController();
+  bool _isLoading = false;
 
   Future<List> getData() async {
     var url = Uri.parse('${ApiConfig.baseUrl}/api/Layanan');
@@ -39,6 +42,33 @@ class _LayananState extends State<Layanan> {
         filteredServiceList = List.from(serviceList);
       });
     });
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        // User has reached the end of the list, load more data
+        _loadMoreData();
+      }
+    });
+  }
+
+  void _loadMoreData() async {
+    if (!_isLoading) {
+      setState(() {
+        _isLoading = true;
+      });
+
+      // Simulate loading delay
+      await Future.delayed(Duration(seconds: 1));
+
+      // Example: Load more data, here we simulate by adding more items
+      List<dynamic> moreData = await getData();
+      setState(() {
+        serviceList.addAll(moreData);
+        filteredServiceList = List.from(serviceList);
+        _isLoading = false;
+      });
+    }
   }
 
   void initializeUser() {
@@ -80,7 +110,6 @@ class _LayananState extends State<Layanan> {
           ),
         ),
         centerTitle: true,
-        automaticallyImplyLeading: false,
       ),
       backgroundColor: AppColors.backGroundColor,
       body: ListView(
@@ -183,17 +212,22 @@ class _LayananState extends State<Layanan> {
                   return ListView.builder(
                     shrinkWrap: true,
                     physics: ClampingScrollPhysics(),
-                    itemCount: filteredServiceList.length,
+                    controller: _scrollController,
+                    itemCount: filteredServiceList.length + 1,
                     itemBuilder: (context, index) {
-                      var service = filteredServiceList[index];
-                      return DaftarLayananCard(
-                        imagePath: service['lokasi_gambar'],
-                        idLayanan: service['id_layanan'],
-                        nama_layanan: service['nama_layanan'],
-                        harga: service['harga'].toString(),
-                        deskripsi: service['deskripsi'],
-                        isAvailable: false,
-                      );
+                      if (index < filteredServiceList.length) {
+                        var service = filteredServiceList[index];
+                        return DaftarLayananCard(
+                          imagePath: service['lokasi_gambar'],
+                          idLayanan: service['id_layanan'],
+                          nama_layanan: service['nama_layanan'],
+                          harga: service['harga'].toString(),
+                          deskripsi: service['deskripsi'],
+                          isAvailable: false,
+                        );
+                      } else {
+                        return _buildLoadMoreIndicator();
+                      }
                     },
                   );
                 }
@@ -203,5 +237,20 @@ class _LayananState extends State<Layanan> {
         ],
       ),
     );
+  }
+
+  Widget _buildLoadMoreIndicator() {
+    return _isLoading
+        ? Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Center(child: CircularProgressIndicator()),
+          )
+        : SizedBox();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 }

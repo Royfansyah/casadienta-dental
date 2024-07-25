@@ -2,19 +2,34 @@ import 'package:casadienta_dental/settings/constants/warna_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class tableCalendar extends StatefulWidget {
-  const tableCalendar({super.key});
+class TableCalendarWidget extends StatefulWidget {
+  final Function(DateTime) onDateSelected;
+
+  const TableCalendarWidget({Key? key, required this.onDateSelected})
+      : super(key: key);
 
   @override
-  State<tableCalendar> createState() => _tableCalendarState();
+  State<TableCalendarWidget> createState() => _TableCalendarWidgetState();
 }
 
-class _tableCalendarState extends State<tableCalendar> {
-  DateTime today = DateTime.now();
+class _TableCalendarWidgetState extends State<TableCalendarWidget> {
+  late DateTime today;
+  late DateTime firstDay;
+  late DateTime lastDay;
 
-  void _onDaySelected(DateTime day, DateTime focusedDay) {
+  @override
+  void initState() {
+    super.initState();
+    today = DateTime.now();
+    firstDay = today;
+    lastDay =
+        today.add(Duration(days: 2)); // Mengatur lastDay dua hari ke depan
+  }
+
+  void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
+    widget.onDateSelected(selectedDay);
     setState(() {
-      today = day;
+      today = selectedDay;
     });
   }
 
@@ -26,19 +41,20 @@ class _tableCalendarState extends State<tableCalendar> {
         Container(
           child: TableCalendar(
             rowHeight: 43,
-            headerStyle:
-                HeaderStyle(formatButtonVisible: false, titleCentered: true),
+            headerStyle: HeaderStyle(
+              formatButtonVisible: false,
+              titleCentered: true,
+            ),
             availableGestures: AvailableGestures.all,
             selectedDayPredicate: (day) => isSameDay(day, today),
             focusedDay: today,
-            firstDay:
-                today, // Mengatur firstDay dan lastDay agar hanya mencakup hari ini
-            lastDay: today,
+            firstDay: firstDay,
+            lastDay: lastDay,
             onDaySelected: _onDaySelected,
             calendarStyle: CalendarStyle(
               selectedDecoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: AppColors.primaryColor, // Warna background saat dipilih
+                color: Colors.blue, // Warna background saat dipilih
               ),
               selectedTextStyle: TextStyle(
                 color: Colors.white, // Warna teks saat dipilih

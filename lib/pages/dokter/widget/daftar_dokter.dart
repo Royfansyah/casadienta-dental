@@ -6,33 +6,23 @@ import 'package:intl/intl.dart';
 
 class DaftarDokterCard extends StatelessWidget {
   final String imagePath;
-  final int idLayanan;
-  final String nama_layanan;
-  final String harga;
+  final int idDokter;
+  final String nama_dokter;
+  final String pengalaman;
   final String deskripsi;
   final bool isAvailable;
 
   DaftarDokterCard({
     required this.imagePath,
-    required this.idLayanan,
-    required this.nama_layanan,
-    required this.harga,
+    required this.idDokter,
+    required this.nama_dokter,
+    required this.pengalaman,
     required this.deskripsi,
     required this.isAvailable,
   });
 
   @override
   Widget build(BuildContext context) {
-    int hargas = 0; // Initialize harga as an integer
-
-    try {
-      // Attempt to parse harga as an integer, catching potential errors
-      hargas = int.parse(harga);
-    } catch (e) {
-      // Handle parsing errors gracefully
-      print("Error parsing harga: $e");
-      // Provide a default value or alternative action as needed
-    }
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       padding: EdgeInsets.all(16),
@@ -82,14 +72,14 @@ class DaftarDokterCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      nama_layanan,
+                      nama_dokter,
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: AppColors.primaryText),
                     ),
                     Text(
-                      '${NumberFormat.currency(locale: 'id_ID', symbol: 'Rp', decimalDigits: 0).format(double.parse(harga))}',
+                      '$pengalaman Tahun',
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.black38,
@@ -119,10 +109,10 @@ class DaftarDokterCard extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (context) => DetailsDokterPage(
                     imagePath: imagePath,
-                    idLayanan: idLayanan,
-                    layanan: nama_layanan,
-                    harga: harga,
-                    penjelasan: deskripsi,
+                    idDokter: idDokter,
+                    nama_dokter: nama_dokter,
+                    pengalaman: pengalaman,
+                    deskripsi: deskripsi,
                   ),
                 ),
               );
@@ -137,7 +127,7 @@ class DaftarDokterCard extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  'Pesan',
+                  'Detail',
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.white,

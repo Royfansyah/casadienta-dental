@@ -1,13 +1,11 @@
-import 'package:casadienta_dental/pages/riwayat/riwayatPageBlank.dart';
+import 'package:casadienta_dental/pages/dokter/dokterPage.dart';
 import 'package:casadienta_dental/settings/constants/warna_apps.dart';
-import 'package:casadienta_dental/pages/categories/categories.dart';
 import 'package:casadienta_dental/pages/dashboard/dashboard.dart';
 import 'package:casadienta_dental/pages/riwayat/riwayatPage.dart';
 import 'package:casadienta_dental/pages/layanan/layananPage.dart';
 import 'package:casadienta_dental/pages/navbar/widget/bottom_icon_widget.dart';
 import 'package:casadienta_dental/pages/profile/profilePage.dart';
 import 'package:casadienta_dental/resource/resource.gen.dart';
-import 'package:casadienta_dental/settings/constants/warna_apps.dart';
 import 'package:flutter/material.dart';
 
 class NavBar extends StatefulWidget {
@@ -33,10 +31,10 @@ class _NavBarState extends State<NavBar> {
     // Inisialisasi pages di dalam initState
     pages = [
       Dashboard(),
-      const Categories(),
-      const Profile(),
       const Layanan(),
+      const Dokter(),
       const Riwayat(),
+      const Profile(),
     ];
   }
 
@@ -77,30 +75,12 @@ class _NavBarState extends State<NavBar> {
                     children: [
                       BottomIconWidget(
                         title: 'Layanan',
-                        titleColor: pageIndex == 3
-                            ? AppColors.primaryColor
-                            : AppColors.gray,
-                        iconName: pageIndex == 3
-                            ? Assets.icons.icSelectedLayanan.path
-                            : Assets.icons.icUnselectedLayanan.path,
-                        iconColor: pageIndex == 3
-                            ? AppColors.primaryColor
-                            : AppColors.gray,
-                        pageIndex: 3,
-                        tap: () {
-                          setState(() {
-                            pageIndex = 3;
-                          });
-                        },
-                      ),
-                      BottomIconWidget(
-                        title: 'Kategori',
                         titleColor: pageIndex == 1
                             ? AppColors.primaryColor
                             : AppColors.gray,
                         iconName: pageIndex == 1
-                            ? Assets.icons.icSelectedCategory.path
-                            : Assets.icons.icUnselectedCategory.path,
+                            ? Assets.icons.icSelectedLayanan.path
+                            : Assets.icons.icUnselectedLayanan.path,
                         iconColor: pageIndex == 1
                             ? AppColors.primaryColor
                             : AppColors.gray,
@@ -108,6 +88,24 @@ class _NavBarState extends State<NavBar> {
                         tap: () {
                           setState(() {
                             pageIndex = 1;
+                          });
+                        },
+                      ),
+                      BottomIconWidget(
+                        title: 'Dokter',
+                        titleColor: pageIndex == 2
+                            ? AppColors.primaryColor
+                            : AppColors.gray,
+                        iconName: pageIndex == 2
+                            ? Assets.icons.icSelectedDoctor.path
+                            : Assets.icons.icUnselectedDoctor.path,
+                        iconColor: pageIndex == 2
+                            ? AppColors.primaryColor
+                            : AppColors.gray,
+                        pageIndex: 2,
+                        tap: () {
+                          setState(() {
+                            pageIndex = 2;
                           });
                         },
                       ),
@@ -131,12 +129,30 @@ class _NavBarState extends State<NavBar> {
                       ),
                       BottomIconWidget(
                         title: 'Riwayat',
+                        titleColor: pageIndex == 3
+                            ? AppColors.primaryColor
+                            : AppColors.gray,
+                        iconName: pageIndex == 3
+                            ? Assets.icons.icSelectedHistory.path
+                            : Assets.icons.icUnselectedHistory.path,
+                        iconColor: pageIndex == 3
+                            ? AppColors.primaryColor
+                            : AppColors.gray,
+                        pageIndex: 3,
+                        tap: () {
+                          setState(() {
+                            pageIndex = 3;
+                          });
+                        },
+                      ),
+                      BottomIconWidget(
+                        title: 'Profil',
                         titleColor: pageIndex == 4
                             ? AppColors.primaryColor
                             : AppColors.gray,
                         iconName: pageIndex == 4
-                            ? Assets.icons.icSelectedHistory.path
-                            : Assets.icons.icUnselectedHistory.path,
+                            ? Assets.icons.icSelectedUser.path
+                            : Assets.icons.icUnselectedUser.path,
                         iconColor: pageIndex == 4
                             ? AppColors.primaryColor
                             : AppColors.gray,
@@ -144,24 +160,6 @@ class _NavBarState extends State<NavBar> {
                         tap: () {
                           setState(() {
                             pageIndex = 4;
-                          });
-                        },
-                      ),
-                      BottomIconWidget(
-                        title: 'Profil',
-                        titleColor: pageIndex == 2
-                            ? AppColors.primaryColor
-                            : AppColors.gray,
-                        iconName: pageIndex == 2
-                            ? Assets.icons.icSelectedUser.path
-                            : Assets.icons.icUnselectedUser.path,
-                        iconColor: pageIndex == 2
-                            ? AppColors.primaryColor
-                            : AppColors.gray,
-                        pageIndex: 2,
-                        tap: () {
-                          setState(() {
-                            pageIndex = 2;
                           });
                         },
                       ),

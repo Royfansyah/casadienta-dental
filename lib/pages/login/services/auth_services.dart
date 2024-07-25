@@ -80,7 +80,7 @@ class AuthService {
       'nama_user': userName,
       'foto_user': userImage,
       'email': userEmail,
-      'role': 'user',
+      'role': 'pengunjung',
     });
 
     await http.post(url, headers: headers, body: body);

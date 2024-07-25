@@ -39,7 +39,7 @@ class _RiwayatState extends State<Riwayat> {
             Uri.parse('${ApiConfig.baseUrl}/api/Pemesanan?idGoogle=$idGoogle');
         final response = await http.get(url);
 
-        if (response.statusCode == 200) {
+        if (response.statusCode == 200 || response.statusCode == 201) {
           return jsonDecode(response.body);
         } else {
           throw Exception('Failed to load data');
@@ -106,30 +106,33 @@ class _RiwayatState extends State<Riwayat> {
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
               return Center(child: Text('Kamu Belum Memiliki Riwayat'));
             } else {
-              List<dynamic> dataLayanan = snapshot.data!;
-              dataLayanan.sort((a, b) {
+              List<dynamic> dataRiwayat = snapshot.data!;
+              dataRiwayat.sort((a, b) {
                 DateTime dateA = DateTime.parse(a['tanggal_pemesanan']);
                 DateTime dateB = DateTime.parse(b['tanggal_pemesanan']);
                 return dateB.compareTo(dateA);
               });
               return ListView.builder(
-                itemCount: dataLayanan.length,
+                itemCount: dataRiwayat.length,
                 itemBuilder: (context, index) {
-                  var layanan = dataLayanan[index];
+                  var riwayat = dataRiwayat[index];
                   return InkWell(
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => detailsHistory(
-                            imagePath: layanan['lokasi_gambar'],
-                            idLayanan: layanan['id_layanan'],
-                            layanan: layanan['nama_layanan'],
-                            harga: layanan['harga'].toString(),
-                            tanggal: layanan['tanggal_pemesanan'],
-                            waktu: layanan['waktu_pemesanan'],
-                            status: layanan['status_pemesanan'],
-                            metodePembayaran: layanan['metode_pembayaran'],
+                            imagePath: riwayat['lokasi_gambar'],
+                            idLayanan: riwayat['id_layanan'],
+                            idUser: riwayat['id_user'],
+                            nama_dokter: riwayat['nama_dokter'],
+                            layanan: riwayat['nama_layanan'],
+                            harga: riwayat['harga'].toString(),
+                            tanggal: riwayat['tanggal_pemesanan'],
+                            waktu: riwayat['waktu_pemesanan'],
+                            status: riwayat['status_pemesanan'],
+                            hasil_analisa: riwayat['hasil_analisa'],
+                            saran_layanan: riwayat['saran_layanan'],
                           ),
                         ),
                       );
@@ -157,7 +160,7 @@ class _RiwayatState extends State<Riwayat> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: Image.network(
-                                dataLayanan[index]['lokasi_gambar'],
+                                dataRiwayat[index]['lokasi_gambar'],
                                 width: 60,
                                 height: 60,
                                 fit: BoxFit.cover,
@@ -170,7 +173,7 @@ class _RiwayatState extends State<Riwayat> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  dataLayanan[index]['nama_layanan'],
+                                  dataRiwayat[index]['nama_layanan'],
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
@@ -179,20 +182,20 @@ class _RiwayatState extends State<Riwayat> {
                                 ),
                                 SizedBox(height: 5),
                                 Text(
-                                  '${_formatDate(dataLayanan[index]['tanggal_pemesanan'])} - ${_formatTime(dataLayanan[index]['waktu_pemesanan'])}',
+                                  '${_formatDate(dataRiwayat[index]['tanggal_pemesanan'])} - ${_formatTime(dataRiwayat[index]['waktu_pemesanan'])}',
                                   style: TextStyle(fontSize: 14),
                                 ),
                                 SizedBox(height: 5),
                                 Container(
                                   decoration: BoxDecoration(
                                     color: _getStatusColor(
-                                        dataLayanan[index]['status_pemesanan']),
+                                        dataRiwayat[index]['status_pemesanan']),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 8, vertical: 3),
                                   child: Text(
-                                    dataLayanan[index]['status_pemesanan'],
+                                    dataRiwayat[index]['status_pemesanan'],
                                     style: TextStyle(
                                         fontSize: 12, color: Colors.white),
                                   ),

@@ -56,23 +56,27 @@ class PopularCard extends StatelessWidget {
                     backgroundImage: NetworkImage(imagePath),
                   ),
                   SizedBox(width: 8),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        layanan,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.primaryColor,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          layanan,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.primaryColor,
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
-                      ),
-                      Text(
-                        namaUser,
-                        style: TextStyle(
-                            fontSize: 12, color: AppColors.primaryColor),
-                      ),
-                    ],
+                        Text(
+                          namaUser,
+                          style: TextStyle(
+                              fontSize: 12, color: AppColors.primaryColor),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -86,13 +90,16 @@ class PopularCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10)),
                     padding: EdgeInsets.all(8),
                     height:
-                        40, // Sesuaikan tinggi container dengan kebutuhan Anda
+                        50, // Tinggi container
                     width: double.infinity,
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: Text(
-                        review,
-                        style: TextStyle(fontSize: 11, color: Colors.black),
+                        '"$review"',
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black,
+                            fontStyle: FontStyle.italic),
                       ),
                     ),
                   ),

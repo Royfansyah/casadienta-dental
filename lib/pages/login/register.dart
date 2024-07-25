@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/gestures.dart';
 import '/components/app_text_form_field.dart';
+import 'package:casadienta_dental/config/api_config.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:math';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -13,19 +18,47 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
-  TextEditingController fullNameController = TextEditingController();
-  TextEditingController mobilePhoneController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  Future<void> registerUser() async {
+    // Generate random id_google
+    final idGoogle = Random().nextInt(1000000).toString();
+
+    final response = await http.post(
+      Uri.parse('${ApiConfig.baseUrl}/api/User'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'id_google': idGoogle,
+        'nama_user': usernameController.text,
+        'email': emailController.text,
+        'role': 'pengunjung',
+        'password': passwordController.text,
+      }),
+    );
+
+    if (response.statusCode == 201) {
+      // Jika berhasil, Anda bisa menavigasi pengguna ke halaman login atau menampilkan pesan sukses
+      print('Registrasi berhasil');
+      Navigator.pushReplacementNamed(context, '/home');
+    } else {
+      // Jika gagal, Anda bisa menampilkan pesan error
+      print('Registrasi gagal: ${response.body}');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final size = context.mediaQuerySize;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text('Register Page'),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pushReplacementNamed(context, 'Login');
+            Navigator.pushReplacementNamed(context, '/login');
           },
         ),
       ),
@@ -47,7 +80,7 @@ class _RegisterState extends State<Register> {
                     ],
                   ),
                 ),
-                child: Column(
+                child: const Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -59,7 +92,7 @@ class _RegisterState extends State<Register> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 6,
                     ),
                     Text(
@@ -86,22 +119,23 @@ class _RegisterState extends State<Register> {
                       controller: emailController,
                     ),
                     AppTextFormField(
-                      labelText: 'Full Name',
+                      labelText: 'Username',
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
                       onChanged: (value) {
                         _formKey.currentState?.validate();
                       },
-                      controller: fullNameController,
+                      controller: usernameController,
                     ),
                     AppTextFormField(
-                      labelText: 'Mobile Phone',
-                      keyboardType: TextInputType.phone,
+                      labelText: 'Password',
+                      keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.done,
                       onChanged: (value) {
                         _formKey.currentState?.validate();
                       },
-                      controller: mobilePhoneController,
+                      controller: passwordController,
+                      obscureText: true, // Menambahkan properti ini
                     ),
                     const SizedBox(
                       height: 15,
@@ -114,7 +148,7 @@ class _RegisterState extends State<Register> {
                           RichText(
                             text: TextSpan(
                               text: "By signing up, you agree to our ",
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 13,
                               ),
@@ -125,11 +159,11 @@ class _RegisterState extends State<Register> {
                                       print("klik Term & Condition");
                                     },
                                   text: "Term & Condition",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.red,
                                   ),
                                 ),
-                                TextSpan(
+                                const TextSpan(
                                   text: " and ",
                                   style: TextStyle(
                                     color: Colors.black,
@@ -141,7 +175,7 @@ class _RegisterState extends State<Register> {
                                       print("klik Policies");
                                     },
                                   text: "Policies",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.red,
                                   ),
                                 ),
@@ -154,12 +188,7 @@ class _RegisterState extends State<Register> {
                           ElevatedButton(
                             onPressed: () {
                               if (_formKey.currentState?.validate() ?? false) {
-                                // Perform registration logic here
-                                // For example, you can print the values for now
-                                print('Email: ${emailController.text}');
-                                print('Full Name: ${fullNameController.text}');
-                                print(
-                                    'Mobile Phone: ${mobilePhoneController.text}');
+                                registerUser();
                               }
                             },
                             style: ButtonStyle(
@@ -167,7 +196,8 @@ class _RegisterState extends State<Register> {
                                   MaterialStateProperty.all(Color(0xFF505050)),
                               foregroundColor:
                                   MaterialStateProperty.all(Colors.white),
-                              textStyle: MaterialStateProperty.all(TextStyle(
+                              textStyle:
+                                  MaterialStateProperty.all(const TextStyle(
                                 fontSize: 13,
                                 fontWeight: FontWeight.bold,
                               )),
@@ -204,7 +234,7 @@ class _RegisterState extends State<Register> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.pushReplacementNamed(context, 'Login');
+                        Navigator.pushReplacementNamed(context, '/login');
                       },
                       style: Theme.of(context).textButtonTheme.style,
                       child: Text(
