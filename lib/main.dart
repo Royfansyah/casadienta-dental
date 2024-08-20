@@ -1,7 +1,7 @@
 import 'package:casadienta_dental/pages/dashboard/dashboard.dart';
 import 'package:casadienta_dental/pages/login/login.dart';
 import 'package:casadienta_dental/pages/splash_screen/splash_screen.dart';
-// import 'package:casadienta_dental/pages/navbar/navbar.dart';
+import 'package:casadienta_dental/pages/navbar/navbar.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:casadienta_dental/pages/login/register.dart';
@@ -13,7 +13,7 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //Remove this method to stop OneSignal Debugging
-  OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);                                
+  OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
 
   OneSignal.shared.setAppId("ac7b446d-c82e-4064-a25c-4951aa8e0191");
 
@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => Login(),
         '/register': (context) => Register(),
         '/home': (context) => Dashboard(),
+        '/navbar': (context) => NavBar(initialPageIndex: 0),
       },
     );
   }

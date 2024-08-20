@@ -1,3 +1,4 @@
+import 'package:casadienta_dental/settings/constants/warna_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/gestures.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:math';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -22,30 +24,64 @@ class _RegisterState extends State<Register> {
   TextEditingController passwordController = TextEditingController();
 
   Future<void> registerUser() async {
-    // Generate random id_google
-    final idGoogle = Random().nextInt(1000000).toString();
+    try {
+      UserCredential userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
 
-    final response = await http.post(
-      Uri.parse('${ApiConfig.baseUrl}/api/User'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'id_google': idGoogle,
-        'nama_user': usernameController.text,
-        'email': emailController.text,
-        'role': 'pengunjung',
-        'password': passwordController.text,
-      }),
-    );
+      // Kirim data pengguna ke API
+      final response = await http.post(
+        Uri.parse('https://casadienta-92546be972aa.herokuapp.com/api/User'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'id_google': userCredential.user?.uid ?? '',
+          'nama_user': usernameController.text,
+          'email': emailController.text,
+          'role': 'pengunjung',
+          'password': passwordController.text,
+        }),
+      );
 
-    if (response.statusCode == 201) {
-      // Jika berhasil, Anda bisa menavigasi pengguna ke halaman login atau menampilkan pesan sukses
-      print('Registrasi berhasil');
-      Navigator.pushReplacementNamed(context, '/home');
-    } else {
-      // Jika gagal, Anda bisa menampilkan pesan error
-      print('Registrasi gagal: ${response.body}');
+      if (response.statusCode == 201) {
+        // Menampilkan SnackBar untuk registrasi berhasil
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Registrasi berhasil')),
+        );
+        // Jika berhasil, Anda bisa menavigasi pengguna ke halaman login atau menampilkan pesan sukses
+        print('Registrasi berhasil');
+        Navigator.pushReplacementNamed(context, '/login');
+      } else {
+        // Jika gagal, Anda bisa menampilkan pesan error
+        print('Registrasi gagal, silahkan coba lagi.');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Registrasi gagal, silahkan coba lagi.')),
+        );
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('Kata sandi terlalu lemah.');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Kata sandi terlalu lemah')),
+        );
+      } else if (e.code == 'email-already-in-use') {
+        print('Email sudah digunakan.');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Email sudah digunakan')),
+        );
+      } else {
+        print('Registrasi gagal, silahkan coba lagi.');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Registrasi gagal, silahkan coba lagi.')),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Registrasi gagal, silahkan coba lagi.')),
+      );
     }
   }
 
@@ -54,7 +90,10 @@ class _RegisterState extends State<Register> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Register Page'),
+        title: Text(
+          'Daftar Akun',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -68,16 +107,17 @@ class _RegisterState extends State<Register> {
           child: Column(
             children: [
               Container(
-                height: 180,
+                height: 250,
                 width: double.infinity,
                 padding: const EdgeInsets.all(20),
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Color.fromARGB(255, 63, 63, 63),
-                      Color.fromARGB(255, 90, 90, 90),
-                      Color.fromARGB(255, 66, 66, 66),
-                    ],
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/img/bg_casadienta.jpg'),
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                      Colors.black.withOpacity(0.5),
+                      BlendMode.darken,
+                    ),
                   ),
                 ),
                 child: const Column(
@@ -85,7 +125,7 @@ class _RegisterState extends State<Register> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Create your\nAccount',
+                      'Daftarkan Akunmu',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
@@ -96,7 +136,7 @@ class _RegisterState extends State<Register> {
                       height: 6,
                     ),
                     Text(
-                      'Register to access all features',
+                      'Daftar untuk mengakses semua layanan',
                       style: TextStyle(color: Colors.white),
                     ),
                   ],
@@ -119,7 +159,7 @@ class _RegisterState extends State<Register> {
                       controller: emailController,
                     ),
                     AppTextFormField(
-                      labelText: 'Username',
+                      labelText: 'Nama Lengkap',
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
                       onChanged: (value) {
@@ -142,49 +182,46 @@ class _RegisterState extends State<Register> {
                     ),
                     Center(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment
-                            .stretch, // Ensure the button takes the full width
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          RichText(
-                            text: TextSpan(
-                              text: "By signing up, you agree to our ",
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 13,
-                              ),
-                              children: [
-                                TextSpan(
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () {
-                                      print("klik Term & Condition");
-                                    },
-                                  text: "Term & Condition",
-                                  style: const TextStyle(
-                                    color: Colors.red,
-                                  ),
-                                ),
-                                const TextSpan(
-                                  text: " and ",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                TextSpan(
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () {
-                                      print("klik Policies");
-                                    },
-                                  text: "Policies",
-                                  style: const TextStyle(
-                                    color: Colors.red,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(
-                              height:
-                                  20), // Add some spacing between RichText and ElevatedButton
+                          // RichText(
+                          //   text: TextSpan(
+                          //     text: "By signing up, you agree to our ",
+                          //     style: const TextStyle(
+                          //       color: Colors.black,
+                          //       fontSize: 13,
+                          //     ),
+                          //     children: [
+                          //       TextSpan(
+                          //         recognizer: TapGestureRecognizer()
+                          //           ..onTap = () {
+                          //             print("klik Term & Condition");
+                          //           },
+                          //         text: "Term & Condition",
+                          //         style: const TextStyle(
+                          //           color: Colors.red,
+                          //         ),
+                          //       ),
+                          //       const TextSpan(
+                          //         text: " and ",
+                          //         style: TextStyle(
+                          //           color: Colors.black,
+                          //         ),
+                          //       ),
+                          //       TextSpan(
+                          //         recognizer: TapGestureRecognizer()
+                          //           ..onTap = () {
+                          //             print("klik Policies");
+                          //           },
+                          //         text: "Policies",
+                          //         style: const TextStyle(
+                          //           color: Colors.red,
+                          //         ),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
+                          // const SizedBox(height: 20),
                           ElevatedButton(
                             onPressed: () {
                               if (_formKey.currentState?.validate() ?? false) {
@@ -192,8 +229,8 @@ class _RegisterState extends State<Register> {
                               }
                             },
                             style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Color(0xFF505050)),
+                              backgroundColor: MaterialStateProperty.all(
+                                  AppColors.primaryColor),
                               foregroundColor:
                                   MaterialStateProperty.all(Colors.white),
                               textStyle:
@@ -201,17 +238,16 @@ class _RegisterState extends State<Register> {
                                 fontSize: 13,
                                 fontWeight: FontWeight.bold,
                               )),
-                              fixedSize: MaterialStateProperty.all(
-                                  Size(500, 35)), // Atur ukuran di sini
+                              fixedSize:
+                                  MaterialStateProperty.all(Size(500, 35)),
                               shape: MaterialStateProperty.all<
                                   RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                      13.0), // Atur sudut di sini
+                                  borderRadius: BorderRadius.circular(13.0),
                                 ),
                               ),
                             ),
-                            child: Text('Submit'),
+                            child: Text('Daftar'),
                           ),
                         ],
                       ),
@@ -226,7 +262,7 @@ class _RegisterState extends State<Register> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Already have an account?",
+                      "Sudah punya akun?",
                       style: Theme.of(context)
                           .textTheme
                           .bodySmall
@@ -238,7 +274,7 @@ class _RegisterState extends State<Register> {
                       },
                       style: Theme.of(context).textButtonTheme.style,
                       child: Text(
-                        'Login Here',
+                        'Login Disini',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                               color: Colors.blue,
                               fontWeight: FontWeight.bold,

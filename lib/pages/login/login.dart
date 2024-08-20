@@ -21,28 +21,38 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController usernameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
   bool isObscure = true;
 
   Future<void> loginUser() async {
-    final response = await http.get(
-      Uri.parse(
-        'https://casadienta-92546be972aa.herokuapp.com/api/User',
-      ),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-    );
+    try {
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
 
-    if (response.statusCode == 201) {
-      // Jika berhasil, Anda bisa menavigasi pengguna ke halaman utama atau menampilkan pesan sukses
       print('Login berhasil');
-      Navigator.pushReplacementNamed(context, '');
-    } else {
-      // Jika gagal, Anda bisa menampilkan pesan error
-      print('Login gagal: ${response.body}');
+      Navigator.pushReplacementNamed(context, '/navbar');
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Email tidak ditemukan.')),
+        );
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Password salah.')),
+        );
+      } else {
+        print('Login error: ${e.message}');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text('Silahkan coba lagi, pastikan data sudah benar.')),
+        );
+      }
     }
   }
 
@@ -55,7 +65,7 @@ class _LoginState extends State<Login> {
           child: Column(
             children: [
               Container(
-                height: 500,
+                height: 250,
                 width: double.infinity,
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
@@ -99,58 +109,92 @@ class _LoginState extends State<Login> {
                     const SizedBox(
                       height: 20,
                     ),
-                    // TextFormField(
-                    //   controller: usernameController,
-                    //   decoration: InputDecoration(
-                    //     labelText: 'Username',
-                    //     border: OutlineInputBorder(
-                    //       borderRadius: BorderRadius.circular(10),
-                    //     ),
-                    //   ),
-                    //   validator: (value) {
-                    //     if (value == null || value.isEmpty) {
-                    //       return 'Please enter your username';
-                    //     }
-                    //     return null;
-                    //   },
-                    // ),
-                    // const SizedBox(height: 15),
-                    // TextFormField(
-                    //   controller: passwordController,
-                    //   obscureText: isObscure,
-                    //   decoration: InputDecoration(
-                    //     labelText: 'Password',
-                    //     border: OutlineInputBorder(
-                    //       borderRadius: BorderRadius.circular(10),
-                    //     ),
-                    //     suffixIcon: IconButton(
-                    //       icon: Icon(
-                    //         isObscure ? Icons.visibility_off : Icons.visibility,
-                    //       ),
-                    //       onPressed: () {
-                    //         setState(() {
-                    //           isObscure = !isObscure;
-                    //         });
-                    //       },
-                    //     ),
-                    //   ),
-                    //   validator: (value) {
-                    //     if (value == null || value.isEmpty) {
-                    //       return 'Please enter your password';
-                    //     }
-                    //     return null;
-                    //   },
-                    // ),
+                    // ----------------------
+                    TextFormField(
+                      controller: emailController,
+                      decoration: InputDecoration(
+                        labelText: 'Email',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your email';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 15),
+                    TextFormField(
+                      controller: passwordController,
+                      obscureText: isObscure,
+                      decoration: InputDecoration(
+                        labelText: 'Password',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            isObscure ? Icons.visibility_off : Icons.visibility,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              isObscure = !isObscure;
+                            });
+                          },
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your password';
+                        }
+                        return null;
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // Text(
+                          //   "Belum punya akun?",
+                          //   style: Theme.of(context)
+                          //       .textTheme
+                          //       .bodySmall
+                          //       ?.copyWith(color: Colors.black),
+                          // ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pushReplacementNamed(
+                                  context, '/register');
+                            },
+                            style: Theme.of(context).textButtonTheme.style,
+                            child: Text(
+                              'Daftar',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     // const SizedBox(height: 20),
-                    // ElevatedButton(
-                    //   onPressed: () {
-                    //     if (_formKey.currentState?.validate() ?? false) {
-                    //       loginUser();
-                    //     }
-                    //   },
-                    //   child: const Text('Login'),
-                    // ),
-                    // const SizedBox(height: 15),
+                    ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState?.validate() ?? false) {
+                          loginUser();
+                        }
+                      },
+                      child: const Text('Login'),
+                    ),
+                    const SizedBox(height: 15),
+                    // ----------------------
                     Row(
                       children: [
                         Expanded(
@@ -161,7 +205,7 @@ class _LoginState extends State<Login> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Text(
-                            'Login with',
+                            'Atau',
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall
@@ -226,7 +270,7 @@ class _LoginState extends State<Login> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Text(
-                            'This Is Us',
+                            'Tentang Kami',
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall
@@ -276,35 +320,8 @@ class _LoginState extends State<Login> {
                   ],
                 ),
               ),
-              // Padding(
-              //   padding:
-              //       const EdgeInsets.symmetric(vertical: 3, horizontal: 25),
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     children: [
-              //       Text(
-              //         "Belum punya akun?",
-              //         style: Theme.of(context)
-              //             .textTheme
-              //             .bodySmall
-              //             ?.copyWith(color: Colors.black),
-              //       ),
-              //       TextButton(
-              //         onPressed: () {
-              //           Navigator.pushReplacementNamed(context, '/register');
-              //         },
-              //         style: Theme.of(context).textButtonTheme.style,
-              //         child: Text(
-              //           'Daftar Disini',
-              //           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              //                 color: Colors.blue,
-              //                 fontWeight: FontWeight.bold,
-              //               ),
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
+              // ----------------------
+              // ----------------------
             ],
           ),
         ),
